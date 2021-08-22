@@ -1,0 +1,39 @@
+<!DOCTYPE html> <!-- it tells OLD browsers that this is a HTML 5 type document. -->
+<head>
+    <style>
+        h1 {text-align: center;}
+    </style>
+	<!-- contains meta data for the page -->
+</head>
+<body>
+	<p> </p>
+	<main>
+		<h1>Types and declarations</h1>
+
+        <p>What is?</p>
+
+        <p> 1) &quot;_t&quot; : Is used to denote aliases :</p>
+
+        <p> 2) &quot;static_assert()&quot; : To check assumptions of implementation defined features. E.g.   static_assert(4<=sizeof(int),&quot;sizeof(int) too small&quot;);    3) &quot;static_cast<>&quot; : Use it to safely convert something. E.g.  static_cast<char>('0' + i);</p>
+
+        <p> 4) &quot;ll or LL&quot;suffix for long long || for others.</p>
+
+        <p> 5) &quot;numeric_limits<char>&quot; : std::numeric_limits<char>::is_signed  </p>
+
+        <p> <h2>Character Type:</h2> <br> 6 different types:  char ; signed char {0, 255} ; unsigned char {-127, 127} ; wchar_t ; char16_t; char32_t  Normally char has 8bits (1Byte) which can only hold ASCII set.  NOTE A 'char' could be unsigned or signed.</p>
+
+        <p> <h2>INT type:</h2> Plain int is always signed int. Unlike 'char' . long long int == long long .</p>
+
+        <p><h2>SIZE:</h2>  Guaranteed sizes:   Char 8 bits  Short 16 bits  long 32 bits NOT guareenteed:  sizeof(long) < sizeof(long long)  sizeof(double) < sizeof(long double) size_t : Is an implementation defined &quot;unsigned integer type&quot; that can hold the size of every object in bytes.  ptrdiff_t : signed integer type for holding the result of subtracting two pointers to get a number of elements.</p>
+
+        <p></p>
+
+        <p> <h1>Pointers</h1></p>
+
+        <p> <h2>Declaration types:</h2></p>
+
+        <p> 1) int* ap[15]; //Array of 15 Pointers to ints.  <br> 2) int (*fp) (char*) //Pointer to a Fn taking a char* and returning an int <br> 3) void (Class_name::*fnPtr) (string) = &amp;Class_name::f; //Pointer to a member Fn &amp; how to invoke it.  (class_obj_ptr->*fnPtr)('string_arg'); <br> <h2>VOID*</h2>  Pointer to an object of unknown type. <br> Note: Occurrences of void*s at higher levels of the system should be viewed with great suspicion because they are likely indicators of design errors. <br> NOTE: Pointer to a FN &amp; Pointer to a member( ->* ) can't be assigned to a void* </p>
+	</main>
+</body>
+<footer>
+</footer>
