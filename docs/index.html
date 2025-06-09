@@ -1,17 +1,89 @@
 <!DOCTYPE html>
-<head>
-<style>
-
-</style>
+<head lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body>
-    <main>
-        <p>Welcome to my website, here you will find my notes on various topics. Enjoy!</p>
-        <br>
-        <a href="https://github.com/anant-pathak/wisdom/wiki/Modern-CPP"> Modern C++ guide </a>
-        <br>
-        <a href="https://github.com/anantthebiker/wisdom/wiki/GIT"> GIT guide </a>
-        <br>
-        <p>The above guides are authored by: Anant Pathak <anant.p.pathak@outlook.com> </p>
-    </main>
+  <main>
+    <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
+      <a class="navbar-brand ms-2" href="index.html">anant-pathak.github.io</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html"
+              >About Me</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="cpp/cpp_whole.html"
+              >C++ Cheat Sheet</a
+            >
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              C++ Cheat Sheet
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="cpp/cpp_whole.html">Whole</a>
+              </li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">YouTube Vlogs</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="d-flex p-2 bd-highlight flex-column justify-content-center">
+      <div class="d-flex justify-content-center p-3 m-2">About Me</div>
+      <div class="d-flex justify-content-center p-3 m-2">
+        My name is Anant. I am a Software Engineer & a Post grad student at
+        Portland State University. Did my Masters from PSU in 2021. Recently
+        begun my PhD in Systems domain under Professor Karen Karvanic. In my
+        free time, enjoy playing games like Cities Skylines 2 or go for some
+        cycling.
+      </div>
+    </div>
+
+    <br />
+    <a href="https://github.com/anant-pathak/wisdom/wiki/Modern-CPP">
+      Modern C++ guide
+    </a>
+    <br />
+    <a href="https://github.com/anantthebiker/wisdom/wiki/GIT"> GIT guide </a>
+    <br />
+    <p>The above guides are authored by: Anant Pathak</p>
+  </main>
 </body>
