@@ -41,7 +41,10 @@ const addNavbar = (currentPage) => {
 
   const pages = [
     { href: "index.html", text: "About Me" },
+    { href: "previous_work.html", text: "Previous Work" },
     { href: "cpp_whole.html", text: "C++ Cheat Sheet" },
+    { href: "linux_cheat_sheet.html", text: "Linux Cheat Sheet" },
+    { href: "git.html", text: "Git Cheat Sheet" },
     { href: "youtube.html", text: "YouTube Vlogs" },
     { href: "contact_me.html", text: "Contact Me" },
   ];

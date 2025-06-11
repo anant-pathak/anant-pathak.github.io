@@ -1,0 +1,4591 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script defer src="common.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="Generator" content="Microsoft Word 15 (filtered)" />
+  <style>
+    <!--
+     /* Font Definitions */
+     @font-face
+    	{font-family:Wingdings;
+    	panose-1:5 0 0 0 0 0 0 0 0 0;}
+    @font-face
+    	{font-family:"Cambria Math";
+    	panose-1:2 4 5 3 5 4 6 3 2 4;}
+    @font-face
+    	{font-family:Calibri;
+    	panose-1:2 15 5 2 2 2 4 3 2 4;}
+    @font-face
+    	{font-family:Aptos;
+    	panose-1:2 11 0 4 2 2 2 2 2 4;}
+    @font-face
+    	{font-family:Consolas;
+    	panose-1:2 11 6 9 2 2 4 3 2 4;}
+     /* Style Definitions */
+     p.MsoNormal, li.MsoNormal, div.MsoNormal
+    	{margin-top:0in;
+    	margin-right:0in;
+    	margin-bottom:8.0pt;
+    	margin-left:0in;
+    	line-height:115%;
+    	font-size:12.0pt;
+    	font-family:"Aptos",sans-serif;}
+    .MsoChpDefault
+    	{font-family:"Aptos",sans-serif;}
+    .MsoPapDefault
+    	{margin-bottom:8.0pt;
+    	line-height:115%;}
+    @page WordSection1
+    	{size:8.5in 11.0in;
+    	margin:1.0in 1.0in 1.0in 1.0in;}
+    div.WordSection1
+    	{page:WordSection1;}
+     /* List Definitions */
+     ol
+    	{margin-bottom:0in;}
+    ul
+    	{margin-bottom:0in;}
+    -->
+  </style>
+</head>
+
+<body lang="EN-US" link="blue" vlink="#96607D" style="word-wrap: break-word">
+  <main>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="WordSection1 w-75">
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Basics of Linux [gcc, ldd, stdlibc++].
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >ldd : (list dynamic dependencies)
+            </span>
+          </li>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >A tool part of the glibc package.
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >e.g. ldd bin
+          </span>
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >Relationship between GLIBCXXX and G++ and libstdc++?
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <b
+                ><span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                  >stdlibc++</span
+                ></b
+              ><span
+                style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >
+                is the official GNU Standard Library for C++.
+              </span>
+            </li>
+            <ul style="margin-top: 0in" type="disc">
+              <li
+                class="MsoNormal"
+                style="
+                  margin-bottom: 0in;
+                  line-height: normal;
+                  vertical-align: middle;
+                "
+              >
+                <span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                  >It contains symbol name spaces by the name of glibcxxx
+                  version 3.4.2 etc. Which means it the libstdc++ supports would
+                  support certain version of c++ ETC.
+                </span>
+              </li>
+              <li
+                class="MsoNormal"
+                style="
+                  margin-bottom: 0in;
+                  line-height: normal;
+                  vertical-align: middle;
+                "
+              >
+                <span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                  >You may check the ABI to see more details of relationships in
+                  versions of gcc and stdlibc++ : </span
+                ><span
+                  style="font-size: 16pt; font-family: 'Times New Roman', serif"
+                  ><a
+                    href="https://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html"
+                    ><span
+                      lang="EN-IN"
+                      style="font-family: 'Calibri', sans-serif"
+                      >https://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html</span
+                    ></a
+                  ></span
+                ><span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                >
+                </span>
+              </li>
+              <li
+                class="MsoNormal"
+                style="
+                  margin-bottom: 0in;
+                  line-height: normal;
+                  vertical-align: middle;
+                "
+              >
+                <span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                  >g++ : is the compiler for c++, it compiles c++ and links it
+                  against the libstdc++ library. Newer version of g++ would
+                  support newer version of c++ 14 etc. G++ is also part of the
+                  GCC library.</span
+                >
+              </li>
+              <li
+                class="MsoNormal"
+                style="
+                  margin-bottom: 0in;
+                  line-height: normal;
+                  vertical-align: middle;
+                "
+              >
+                <span
+                  style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                  >How to check which all versions of glibcxxx are in your
+                  libstdc++ ?
+                </span>
+              </li>
+              <ul style="margin-top: 0in" type="square">
+                <li
+                  class="MsoNormal"
+                  style="
+                    margin-bottom: 0in;
+                    line-height: normal;
+                    vertical-align: middle;
+                  "
+                >
+                  <span
+                    style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+                    >strings path_to_libstdc++ | grep “GLIBCXX”</span
+                  >
+                </li>
+              </ul>
+            </ul>
+          </ul>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-bottom: 0in;
+            line-height: normal;
+            vertical-align: middle;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Times New Roman', serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >BREW:
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Installing brew: Check out site.</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >General command:
+              <b
+                >brew&nbsp;command&nbsp;[--verbose|-v] [options] [formula] …
+                <br /> </b
+              >where formula is name of a package like: Node git etc.
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >How to simply install a package: brew install <i>package </i
+              ><br />
+              E.g. ~ brew install node <br />
+              It will uninstall any previous installed package.
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >How to check version an installed package: brew info node</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >How to update <b>BREW</b> and all <i>formulae. : </i>brew update
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Packages:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span
+                style="font-size: 16pt; font-family: 'Times New Roman', serif"
+                ><a href="https://github.com/nriley/brightness"
+                  ><b
+                    ><span
+                      lang="EN-GB"
+                      style="
+                        font-size: 20pt;
+                        font-family: 'Calibri', sans-serif;
+                      "
+                      >brightness</span
+                    ></b
+                  ></a
+                ></span
+              ><span
+                style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >
+                : To control the screen's brightness from Terminal.</span
+              >
+            </li>
+            <ul style="margin-top: 0in" type="disc">
+              <li
+                class="MsoNormal"
+                style="
+                  margin-bottom: 0in;
+                  line-height: normal;
+                  vertical-align: middle;
+                "
+              >
+                <span
+                  lang="EN-GB"
+                  style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                  >brew install brightness</span
+                >
+              </li>
+            </ul>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span
+              lang="EN-GB"
+              style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >How to check which all packages have been installed?
+            </span>
+          </li>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span
+            lang="EN-GB"
+            style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span
+            lang="EN-GB"
+            style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >ZSH TERMINAL</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Install ZSH terminal to keep track of present git directories you
+            are in.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to know  which terminal you are using?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >echo &quot;$SHELL&quot;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >||ly:</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >PATH: echo &quot;$PATH&quot;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >HOME Directory: echo &quot;$HOME&quot;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to add a new directory to the PATH?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Go to home -&gt;
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >vim .bashrc | .zshrc or nano ~/.bashrc
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >At the very end of that file:
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >export PATH=&quot;$HOME/.local/bin:$PATH&quot;<br />
+            Save the file-&gt;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >source .bashrc</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >echo &quot;$PATH&quot;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <i
+            ><span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >If not to the path, if just wish to create an alias name for a
+              path that you can cd to:
+            </span></i
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >export
+            PHORONIX_WORK=/Users/anantpathak/PhD/BenchMarking/Phoronix/phoronix-test-suite/
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to add a path to the LD_LIBRARY_PATH ?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            ><a href="https://stackoverflow.com/a/13428971"
+              ><span style="font-size: 14pt"
+                >https://stackoverflow.com/a/13428971</span
+              ></a
+            ></span
+          ><span style="font-size: 11pt; font-family: 'Calibri', sans-serif">
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >In .bashrc append: export LD_LIBRARY_PATH=\..\..path</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&amp; also add the method described in stackoverflow. Which
+            says:</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="line-height: normal">
+          <span style="font-size: 11pt; font-family: Consolas">Cd /etc</span>
+        </p>
+
+        <p class="MsoNormal" style="line-height: normal">
+          <span style="font-size: 11pt; font-family: Consolas"
+            >Sudo vim ld.so.conf.d/randomLibs.conf
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="line-height: normal">
+          <span style="font-size: 11pt; font-family: Consolas"
+            >Add the path in that file and a new directory would get created:
+            ld.conf.d with randomLibs.conf file
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="line-height: normal">
+          <span
+            style="font-size: 11pt; font-family: Consolas; background: yellow"
+            >Sudo ldconfig for affect to take place</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >This flag is used by the <i>ld</i> program. What other flags are
+            important to the Linux linker LD:
+          </span>
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              color: #232629;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: Consolas"
+              >LD_LIBRARY_PATH</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              color: #232629;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: Consolas"
+              >LD_RUN_PATH</span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: Consolas; color: #232629"
+            >Temporarily do it this way:
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: Consolas; color: #232629"
+            >Export LD_LIBRARY_PATH=path:$LD_LIBRARY_PATH</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: Consolas; color: #232629"
+            >or</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: Consolas; color: #232629"
+            >Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:path // if we want the new
+            path to be looked at the last.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to view file permission:
+            </span></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >ls -la
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to change file permission in Terminal:
+            </span></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >chmod &lt;755&gt; &lt;file_name&gt; //-rwxr_xr_x</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to create a symbolic shortcut of a folder of file in linux?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >ln -s source_file_fir .
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >Shell:
+            </span></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Separate command using '&amp;' ';'</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >A variety of shell metacharacters can be used to perform OS command
+            injection attacks.</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >A number of characters function as command separators, allowing
+            commands to be chained together. The following command separators
+            work on both Windows and Unix-based systems:</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&amp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&amp;&amp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >|</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >||</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >The following command separators work only on Unix-based
+            systems:</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Newline (0x0a&nbsp;or&nbsp;\n)</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >On Unix-based systems, you can also use backticks or the dollar
+            character to perform inline execution of an injected command within
+            the original command:</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >`&nbsp;injected command&nbsp;`</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >$(&nbsp;injected command&nbsp;)</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >VIM:</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to undo an action?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; u</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to redo a thing?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; Ctrl + R
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to search a word in the document?</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; /&lt;word&gt; -&gt; Press Enter -&gt; 'n' OR 'N'
+            &lt;next&gt;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to copy selected text on vim?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >If it has to be copied within VIM, then
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; y (for mouse selected line) or yy (to copy the full line
+            where cursor is) -&gt; p(paste)/d(delete)</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Save different lines to registers?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; shift+v-&gt; &quot;a OR &quot;b -&gt; y
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Pasting: &quot;a OR &quot;b -&gt; p</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Select lines w/o mouse?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; Shift + v(i.e. V) -&gt; Up or down arrow keys</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to indent a bunch of lines?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc: Shift + v   //Select lines</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Shift + &lt; OR &gt; (i.e. the dot key)</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Done!</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to reach the top of file?</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc-&gt; gg</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >For end:</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc-&gt; Gi</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >How to paste a text from another app without indentation?
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; :set paste -&gt; Then paste your text.
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Then turn off the set paste method.</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Esc -&gt; :set nopaste</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Yank, Paste, Delete</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Y, p, d 
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to create an SHA key?</span
+            ></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >ssh-keygen -t rsa</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >Then : cd ~/.ssh/'</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >Or
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >How to check if packages are installed well?</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >sudo dpkg-query -l git gitk git-gui subversion curl g++ rcs
+            python-matplotlib fping bison build-essential flex openssh-server
+            lvm2 thin-provisioning-tools python-pkg-resources</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Dpkg --list | grep opencv</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Apt list | grep more</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >pkg-config —list-all | grep gtk</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to upgrade the packages?
+            </span></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Sudo apt-get update  //It fetches the list of new packages and
+            upgrades the index</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Sudo apt-get upgrade  // It actually
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >s the packages.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to remove a package and all its dependencies:</span
+            ></b
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Sudo apt-get autoremove &lt;pkgName&gt;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to download a file/zip from Internet directly to
+              Ubuntu?</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              color: #1e4e79;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >wget  -P /home/omio/Desktop/ &quot;</span
+            ><span
+              style="font-size: 16pt; font-family: 'Times New Roman', serif"
+              ><a href="http://thecanadiantestbox.x10.mx/CC.zip"
+                ><span style="font-family: 'Calibri', sans-serif"
+                  >http://thecanadiantestbox.x10.mx/CC.zip</span
+                ></a
+              ></span
+            ><span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >&quot;</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              color: #1e4e79;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >wget &quot;</span
+            ><span
+              style="font-size: 16pt; font-family: 'Times New Roman', serif"
+              ><a
+                href="http://domain.com/directory/4?action=AttachFile&amp;do=view&amp;target=file.tgz"
+                ><span style="font-family: 'Calibri', sans-serif"
+                  >http://domain.com/directory/4?action=AttachFile&amp;do=view&amp;target=file.tgz</span
+                ></a
+              ></span
+            ><span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+              >&quot;  //Will download in the current directory.
+            </span>
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >From Google drive: </span
+            ><span
+              style="font-size: 16pt; font-family: 'Times New Roman', serif"
+              ><a
+                href="https://medium.com/@acpanjan/download-google-drive-files-using-wget-3c2c025a8b99"
+                ><span
+                  style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                  >https://medium.com/@acpanjan/download-google-drive-files-using-wget-3c2c025a8b99</span
+                ></a
+              ></span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 9.5pt; font-family: Consolas; color: #242729"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to create a .bashrc file and load it.
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Vim .bashrc
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Type whatever is needed
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Load it using:
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >source ~/.bashrc</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 16pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to send a file from local Windows PC to Remote SSH server?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Open powershell -&gt; pscp -r &lt;.\dir OR file_path_name&gt;
+            anant@server_name:/home/opt/hello.txt
+          </span>
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >REVERSE</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >To download a file from a remote server to your computer:</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >pscp user@remote:\home\user\some\file.txt  c:\some\path\to\a\</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="line-height: normal">
+          <i
+            ><span
+              style="
+                font-size: 9pt;
+                font-family: 'Calibri', sans-serif;
+                color: #595959;
+              "
+              >&nbsp;</span
+            ></i
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >FILE System Linux:
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Check disk size and info:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Df -h</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Df -sh
+              </span>
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Directory size:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Du
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Du -sh // would summarize the total used size of current dir
+                and all sub dirs.
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Du -sh /home/user/*.    #would display size of each first level
+                dir in GBs.
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Du -h - - max-depth=1 /var
+              </span>
+            </li>
+          </ul>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 81pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to find a file/folder in Ubuntu? Note: regex needs to be
+              properly implemented</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >find / -name '*git-lfs*'</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >find .  -name “*.cpp”</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >find . -type f -iname ‘*py2ipc*’ [f - file , i- case
+              insensitive]</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >find . -type d -name '.OpenIPC'</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Find . -name &quot;*.cpp&quot; | head | xargs wc –l  [head = only
+              top 10, xargs = do operation on each file result, wc = Word count]
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Find -type f -name “*.pdf” | xargs rm //would delete all files
+              recursively</span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to search for a keyword in files in subdirectories in
+              Ubuntu?</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Grep -Ri  
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Grep -rl “string string” .  (R = recursive, l = show file names,
+              . = current directory)</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+              >Grep –Rin &quot;string_to_search&quot;
+              --include=&quot;*.cmake&quot;</span
+            >
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >NOTE: Grep’s search string looks for the string in the file and
+              not as a word. So, “ana” would give results for lines with “anant”
+              or “anaconda” as well. Use of regex “*ana” doesn’t seem to
+              work</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Search within a binary file:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >grep -a  // It would treat a binary file as a text file</span
+              >
+            </li>
+          </ul>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              color: #1e4e79;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: black;
+              "
+              >Exclude Binary files and Only include exact matches:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                color: #1e4e79;
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span
+                style="
+                  font-size: 14pt;
+                  font-family: 'Calibri', sans-serif;
+                  color: black;
+                "
+                >Grep –rin -IF &quot;1.9.8&quot;
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                color: #1e4e79;
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span
+                style="
+                  font-size: 14pt;
+                  font-family: 'Calibri', sans-serif;
+                  color: black;
+                "
+                >-I Excludes binary files.</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                color: #1e4e79;
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span
+                style="
+                  font-size: 14pt;
+                  font-family: 'Calibri', sans-serif;
+                  color: black;
+                "
+                >-F Makes the search exact
+              </span>
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              color: #1e4e79;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: black;
+              "
+              >Grep for a word and print file names, then perform operation on
+              them:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                color: #1e4e79;
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span
+                style="
+                  font-size: 14pt;
+                  font-family: 'Calibri', sans-serif;
+                  color: black;
+                "
+                >grep -rl -IF &quot;search&quot; | xargs sed -i
+                &quot;s/find/replace/g&quot;</span
+              >
+            </li>
+          </ul>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >TMUX Commands::q</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >To create a new <b>tmux session: tmux new -s my_session</b></span
+            >
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Go back to a session from terminal:
+              <b>tmux attach -t &lt;session-name&gt;</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Detach from a session: <b>C-b + d</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Lookup all opened sessions: <b>tmux ls</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Creating new window within session: <b>C-b + c </b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Killing a window: <b>C-b + &amp;  OR type: exit</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Moving between windows: <b>C-b + [n,p,w]</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >When in a session you can kill the SESSION by:
+              <b>C-b + :  kill-session</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Increase scrollback bufer:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >vim ~/.tmux.conf</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >set -g history-limit 5000</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Esc-&gt; wq!
+              </span>
+            </li>
+          </ul>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >PANES:
+          </span>
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Renaming a window: <b>C-b + ,</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Split pane horizontal: <b>C-b + &quot;</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Split pane vertical <b>C-b + %</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Kill a pane: <b>C-d</b> 
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Switching between panes: <b>C-b + Arrow Keys </b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Resizing a pane:
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <b
+                ><span
+                  style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                  >C-b + : resize-pane -[R/D/L/U] [Units_in_int]   e.g.:  -R
+                  30</span
+                ></b
+              >
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Enable mouse for that session:
+              <b>tmux set-option -g mouse on</b></span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Mouse On persistent: In ~/.tmux.conf -&gt; add
+              <b>tmux source ~/.tmux.conf</b></span
+            >
+          </li>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to find and replace a word in Linux across files?
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Use ‘sed’
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Sed -i -e ’s/CMP/AAANANT/g’ *.XML
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >-I = edit in place , I.e. not create a new file
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >-e to look for further options
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >s/ substitute the found expression.
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >/g global, I.e. in a single line replica multiple found items if
+              required</span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Regex</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span
+              lang="EN-IN"
+              style="font-size: 16pt; font-family: 'Times New Roman', serif"
+              ><a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet"
+                ><span
+                  style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                  >https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet</span
+                ></a
+              ></span
+            ><span
+              lang="EN-IN"
+              style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >E.g. on the word ”logging”</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >“.logging” . any char except a whtespace</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >“\slogging\s” whitespace before and after
+            </span>
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to extract a zip file?
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >tar -xvf &lt;file-name&gt;</span
+            >
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >x Extract</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >v Verbose</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >f fileName</span
+              >
+            </li>
+          </ul>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to zip a folder?</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >tar -czvf archive.tar.gz ./stuff</span
+            >
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >c Create an archive</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >z g<b>z</b>ip</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >v verbose</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >f the filename which would be the output.</span
+              >
+            </li>
+          </ul>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to find the current version of your GCC compiler?
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+              >Gcc -v
+            </span>
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 11pt; font-family: 'Calibri', sans-serif"
+              >G++ -v</span
+            >
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >ldd —version
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              color: #1e4e79;
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: black;
+              "
+              >It would tell you the GLIBC version in your system, Glibc is
+              GNU's implementation of the C standard.
+            </span>
+          </li>
+        </ul>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >May be required when
+            </span>
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to patch a file in Linux:
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >diff file1 file2 &gt; file3.patch</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >patch -b(backup) file1 -i(source patch) file3.patch</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >With git: Just locally commit your changes and wrt to the current
+              but one commit get a diff and create a patch</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Git diff commit_old commit_new &gt; workaround.patch
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Git apply —ignore-whitespace /C/dir/…workaround.patch
+            </span>
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to find packages in Linux:
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >pkg-config —list-all | grep -i &lt;name&gt;</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >pkg-config —cflags &lt;name&gt; 
+            </span>
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Package managers:</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <b
+              ><span
+                style="
+                  font-size: 14pt;
+                  font-family: 'Calibri', sans-serif;
+                  background: yellow;
+                "
+                >apt</span
+              ></b
+            ><b
+              ><span
+                style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >
+                [Ubuntu]</span
+              ></b
+            >
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Uses dpkg internally</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >sudo apt-get install &lt;name&gt;</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >sudo apt depends &lt;name&gt;</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >sudo apt list  - -installed | grep -i &lt;name&gt;</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Sudo apt-get update // updates the package and apps' info and
+                version, doesn't actually installs any of the updates.
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Follow the above one with: sudo apt-get upgrade
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >sudo apt-get install <b>build-essential</b>  //Will install a
+                lot of important tools like gcc, g++</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Sudo apt-get autoremove or autoclean</span
+              >
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Packages:</span
+            >
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >Python: python3, python3-dev</span
+              >
+            </li>
+          </ul>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to see files in the Terminal using ‘less’</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Less -N FILEname.txt ; N for showing line numbers  // Or when
+              inside the file.</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Esc / searchWord Enter; n or N to more ahead and back
+              respectively
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >LineNumber -&gt; g
+            </span>
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Small '-i' when inside less to activate case insensitive search
+              or any other operations.</span
+            >
+          </li>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to get rid of the stupid “Permission Denied ” message:</span
+            ></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >suffix: -print 2&gt;/dev/null</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >print &gt; /dev/null 2&gt;&amp;1 // may be it will silence all of
+              the output</span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Check OS-version:
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Cat /etc/os-release</span
+            >
+          </li>
+        </ul>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >How to create symbolik link in Linux and Windows?
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Ln -s source_file_path link_name</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Windows (CMD Prompt): mklink targetfile location b</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Processes and running modules:
+            </span></b
+          >
+        </p>
+
+        <ul style="margin-top: 0in" type="disc">
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >PS :
+            </span>
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >a : all users</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >u : Displays the user/owner of the processes.
+              </span>
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >x : Includes processes that are not attached to a terminal.
+                e.g. processes started by '&amp;' suffix</span
+              >
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >Just 1 user: ps -u anant</span
+            >
+          </li>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >display more columns: ps x -u anant -o
+              user,pid,tty,stat,time,start,cmd</span
+            >
+          </li>
+          <ul style="margin-top: 0in" type="circle">
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >User</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >PID: Process ID</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >TTY: Terminal associated with the process</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >TIME: Cumulative CPU time</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >stat : status</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >START: Start time of the process</span
+              >
+            </li>
+            <li
+              class="MsoNormal"
+              style="
+                margin-bottom: 0in;
+                line-height: normal;
+                vertical-align: middle;
+              "
+            >
+              <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+                >CMD: Command that started the process</span
+              >
+            </li>
+          </ul>
+          <li
+            class="MsoNormal"
+            style="
+              margin-bottom: 0in;
+              line-height: normal;
+              vertical-align: middle;
+            "
+          >
+            <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+              >ps -ef —forest 
+            </span>
+          </li>
+        </ul>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 27pt;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p
+          class="MsoNormal"
+          style="
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0.75in;
+            line-height: normal;
+          "
+        >
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Various flags in Linux:
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >LD_LIBRARY_PATH // /usr/lib/x86-64</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >PATH // for pointing to folders where there can be binaries e.g.
+            /usr/bin/</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >LDFLAGS</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >LIBS</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >Command : Ldd 
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 16pt;
+                font-family: 'Calibri', sans-serif;
+                color: #1e4e79;
+              "
+              >Performance Analysis - Linux:
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >ps :</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >perf</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >top
+            </span></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >&nbsp;</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >cat /proc/&lt;pid&gt;/status :</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >taskset: Checks or Sets the CPU affinity of a process.</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >taskset -cp &lt;PID&gt;  : retrieves the CPU affinity of an
+            existing process.</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >taskset -cp 0,5,8-11 &lt;pid&gt;/&lt;new command&gt; : Assigns the
+            affinity of certain logical cores to that process or launches a new
+            process.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >-c : Interprets mask as numerical list of processors instead of
+            bitmask.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >-p : operates on an existing PID and doesn't launch a new process.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >pidstat</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >pidstat -p &lt;pid&gt; -u 2  
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >-u : displays %user [% CPU used at the application level]; $system
+            [% CPU at the sysetm kernel level]
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >-p : process number</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >2: How long to monitor.
+          </span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 16pt; font-family: 'Times New Roman', serif"
+            ><img
+              border="0"
+              width="502"
+              height="176"
+              id="Picture 1"
+              src="linux_cheat_sheet.fld/image001.png"
+              alt="A screenshot of a computer&#10;&#10;AI-generated content may be incorrect."
+          /></span>
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <b
+            ><span
+              style="
+                font-size: 14pt;
+                font-family: 'Calibri', sans-serif;
+                color: #2e75b5;
+              "
+              >mpstat</span
+            ></b
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal" style="margin-bottom: 0in; line-height: normal">
+          <span style="font-size: 14pt; font-family: 'Calibri', sans-serif"
+            >&nbsp;</span
+          >
+        </p>
+
+        <p class="MsoNormal">&nbsp;</p>
+      </div>
+    </div>
+  </main>
+</body>
