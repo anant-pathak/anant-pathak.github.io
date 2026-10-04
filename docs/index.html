@@ -16,12 +16,19 @@
     crossorigin="anonymous"
   ></script>
   <script defer src="common.js"></script>
+  <style>
+    /* On phones, w-75 is too narrow for the visitor counter widget */
+    @media (max-width: 576px) {
+      .about-col { width: 100% !important; padding-left: 0 !important; padding-right: 0 !important; }
+      .visitor-counter { max-width: 100%; overflow-x: auto; margin-left: 0 !important; margin-right: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+    }
+  </style>
 </head>
 <body>
   <main>
     <div class="d-flex justify-content-center align-items-center">
       <div
-        class="d-flex p-2 bd-highlight flex-column justify-content-center align-items-center w-75"
+        class="d-flex p-2 bd-highlight flex-column justify-content-center align-items-center w-75 about-col"
       >
         <div class="d-flex justify-content-center p-3 m-2">About Me</div>
         <img
@@ -44,7 +51,7 @@
           async
         ></script>
         <div
-          class="elfsight-app-c95b995b-2756-4409-a3c0-95fa0f2ba800 p-3 m-2"
+          class="elfsight-app-c95b995b-2756-4409-a3c0-95fa0f2ba800 visitor-counter p-3 m-2"
           data-elfsight-app-lazy
         ></div>
       </div>
