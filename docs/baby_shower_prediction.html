@@ -621,7 +621,8 @@
           </div>
 
           <button class="submit" id="submit" onclick="submitGuess()" disabled>
-            Submit my guess <span aria-hidden="true">→</span>
+            Submit my guess <span aria-hidden="true">→</span
+          >
           </button>
 
           <div class="privacy-note">
@@ -651,9 +652,14 @@
               Now we wait for the big reveal... ✨
             </p>
 
-            <button class="change-guess" id="changeGuess" type="button" onclick="changeGuess()">
-              Change my guess
-            </button>
+            <div class="d-flex flex-column align-items-center gap-2">
+              <button class="change-guess" id="changeGuess" type="button" onclick="changeGuess()">
+                Change my guess
+              </button>
+              <button class="change-guess" type="button" onclick="resetForm()">
+                Start Over
+              </button>
+            </div>
 
             <div class="tiny-row">
               <span>♡</span>
@@ -723,6 +729,29 @@
       validate();
     });
 
+    function resetForm() {
+      guess = "";
+      nameInput.value = "";
+      const boy = document.getElementById("boy");
+      const girl = document.getElementById("girl");
+      if (boy) {
+        boy.classList.remove("selected");
+        boy.setAttribute("aria-pressed", "false");
+      }
+      if (girl) {
+        girl.classList.remove("selected");
+        girl.setAttribute("aria-pressed", "false");
+      }
+      document.getElementById("form").style.display = "block";
+      document.getElementById("success").style.display = "none";
+      validate();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function changeGuess() {
+      resetForm();
+    }
+
     async function submitGuess() {
       const name = nameInput.value.trim();
 
@@ -734,17 +763,15 @@
       hideError();
 
       const { error } = await sb.rpc("submit_guess", {
-  p_name: name,
-  p_guess: guess
-});
+        p_name: name,
+        p_guess: guess
+      });
 
       if (error) {
         console.error("SUPABASE ERROR:", error);
-
         submitButton.disabled = false;
         submitButton.classList.remove("is-saving");
         submitButton.innerHTML = 'Submit my guess <span aria-hidden="true">→</span>';
-
         showError(
           "We couldn't save your guess right now. Please try again."
         );
@@ -761,15 +788,25 @@
       document.getElementById("guest").textContent = name;
       document.getElementById("prediction").textContent =
         guess === "boy" ? "💙 A BOY!" : "💗 A GIRL!";
+
+      // Timer to reset form after 5 seconds
+      setTimeout(() => {
+        resetForm();
+      }, 5000);
     }
 
-    function changeGuess() {
-      document.getElementById("success").style.display = "none";
-      document.getElementById("form").style.display = "block";
-      nameInput.focus();
-      validate();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    async function logout() {
+      await sb.auth.signOut();
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("loginView").style.display = "grid";
+      setLoginError("");
     }
+
+    sb.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        showDashboard();
+      }
+    });
   </script>
 </body>
 </html>
