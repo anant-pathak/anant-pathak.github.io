@@ -28,6 +28,7 @@ const addNavbar = (currentPage) => {
   button.classList.add("navbar-toggler");
   button.setAttribute("type", "button");
   button.setAttribute("data-bs-toggle", "collapse");
+  button.setAttribute("data-bs-target", "#navbarSupportedContent");
   button.setAttribute("aria-controls", "navbarSupportedContent");
   button.setAttribute("aria-expanded", "false");
   button.setAttribute("aria-label", "Toggle navigation");
@@ -86,10 +87,10 @@ const addNavbar = (currentPage) => {
 // Execute the function on page load
 addNavbar(window.location.pathname);
 
-// Contact me events
+// Contact form only exists on contact_me.html
 document
   .querySelector("#contactMeForm")
-  .addEventListener("submit", function (event) {
+  ?.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevents default form submission
 
     const formData = new FormData(this);
