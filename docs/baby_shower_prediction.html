@@ -832,9 +832,11 @@
       validate();
     });
 
-    function resetForm() {
+    // "Start Over" clears everything; "Change my guess" keeps the name so the
+    // new guess replaces the old one (submit_guess matches on name).
+    function resetForm({ keepName = false } = {}) {
       guess = "";
-      nameInput.value = "";
+      if (!keepName) nameInput.value = "";
       const boy = document.getElementById("boy");
       const girl = document.getElementById("girl");
       if (boy) {
@@ -852,7 +854,7 @@
     }
 
     function changeGuess() {
-      resetForm();
+      resetForm({ keepName: true });
     }
 
     function celebrate(choice) {
