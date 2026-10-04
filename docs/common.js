@@ -25,7 +25,6 @@ const addNavbar = (currentPage) => {
   button.classList.add("navbar-toggler");
   button.setAttribute("type", "button");
   button.setAttribute("data-bs-toggle", "collapse");
-  button.setAttribute("data-bs-target", "#navbarSupportedContent");
   button.setAttribute("aria-controls", "navbarSupportedContent");
   button.setAttribute("aria-expanded", "false");
   button.setAttribute("aria-label", "Toggle navigation");
@@ -39,15 +38,22 @@ const addNavbar = (currentPage) => {
   const ul = document.createElement("ul");
   ul.classList.add("navbar-nav", "me-auto", "mb-2", "mb-lg-0");
 
-  const pages = [
-    { href: "index.html", text: "About Me" },
+  // Full list of pages
+  let pages = [
+    { href: "index.html", text: "🏠 Home" },
     { href: "previous_work.html", text: "Previous Work" },
+    { href: "baby_shower_prediction.html", text: "Baby Shower" },
     { href: "cpp_whole.html", text: "C++ Cheat Sheet" },
     { href: "linux_cheat_sheet.html", text: "Linux Cheat Sheet" },
     { href: "git.html", text: "Git Cheat Sheet" },
     { href: "youtube.html", text: "YouTube Vlogs" },
     { href: "contact_me.html", text: "Contact Me" },
   ];
+
+  // If we are on the Baby Shower page, only show the Home link
+  if (currentPage.includes("baby_shower_prediction.html")) {
+    pages = [{ href: "index.html", text: "🏠 Home" }];
+  }
 
   pages.forEach((page) => {
     const li = document.createElement("li");
@@ -75,10 +81,9 @@ const addNavbar = (currentPage) => {
 };
 
 // Execute the function on page load
-addNavbar(window.location.pathname); // Gets the page that called this script);
+addNavbar(window.location.pathname);
 
 // Contact me events
-
 document
   .querySelector("#contactMeForm")
   .addEventListener("submit", function (event) {

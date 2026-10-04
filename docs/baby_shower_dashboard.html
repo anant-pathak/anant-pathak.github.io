@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gender Reveal • Organizer</title>
+  <meta name="theme-color" content="#f8f4fb">
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script defer src="common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --ink: #403748;
+      --muted: #8b8193;
+      --purple: #9274ad;
+      --purple-dark: #664d79;
+      --blue: #5f8fc8;
+      --blue-bg: #edf5ff;
+      --pink: #cf7ca5;
+      --pink-bg: #fff0f7;
+      --line: rgba(115, 91, 130, 0.12);
+      --shadow: 0 24px 65px rgba(92, 65, 107, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 9% 5%, rgba(255, 198, 220, 0.50), transparent 26%),
+        radial-gradient(circle at 92% 10%, rgba(195, 220, 255, 0.50), transparent 27%),
+        linear-gradient(135deg, #fcf8fb 0%, #f4f0fa 50%, #eef4fb 100%);
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      width: min(100%, 1000px);
+      margin: 0 auto;
+      padding: 26px 17px 38px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 21px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.77);
+      border: 1px solid rgba(255,255,255,0.86);
+      box-shadow: 0 9px 25px rgba(88,66,98,0.08);
+      font-size: 22px;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-sub {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .logout {
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.70);
+      color: #715d7e;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .logout:hover {
+      transform: translateY(-1px);
+      background: white;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.86);
+      border-radius: 26px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .login-shell {
+      width: min(100%, 460px);
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      padding: 25px 0;
+    }
+
+    .login-card {
+      width: 100%;
+      text-align: center;
+    }
+
+    .login-icon {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 15px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #f9eafa, #fff7fb);
+      font-size: 33px;
+      box-shadow: 0 15px 30px rgba(100,76,119,0.08);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      color: var(--purple-dark);
+      font-size: 37px;
+      font-weight: 600;
+      letter-spacing: -0.6px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--purple-dark);
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .form {
+      margin-top: 23px;
+      text-align: left;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #5b4f63;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      height: 48px;
+      margin-bottom: 12px;
+      padding: 0 14px;
+      border: 1.5px solid #e6deeb;
+      border-radius: 14px;
+      outline: none;
+      background: rgba(255,255,255,0.72);
+      color: var(--ink);
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    input:focus {
+      border-color: rgba(146,116,173,0.62);
+      box-shadow: 0 0 0 4px rgba(146,116,173,0.10);
+      background: white;
+    }
+
+    .primary {
+      width: 100%;
+      height: 50px;
+      margin-top: 4px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(110deg, #8e6eaa, #c58cae);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 13px 26px rgba(123,93,135,0.19);
+      transition: 0.2s ease;
+    }
+
+    .primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .error {
+      margin-top: 11px;
+      color: #a85467;
+      font-size: 11px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    #dashboard { display: none; }
+
+    .hero {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 17px;
+    }
+
+    .hero-copy .kicker {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(34px, 6vw, 48px);
+    }
+
+    .refresh {
+      min-width: 126px;
+      height: 43px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,0.74);
+      color: #725e80;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .refresh:hover {
+      transform: translateY(-1px);
+      background: white;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 13px;
+    }
+
+    .stat {
+      position: relative;
+      min-height: 126px;
+      padding: 19px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .stat.total { background: linear-gradient(140deg, #f5eff9, #fbf7fc); }
+    .stat.boy { background: var(--blue-bg); }
+    .stat.girl { background: var(--pink-bg); }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      right: -24px;
+      bottom: -29px;
+      background: rgba(255,255,255,0.52);
+    }
+
+    .stat-label {
+      position: relative;
+      z-index: 1;
+      color: #8c8194;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .stat-number {
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .stat-note {
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      color: #978d9d;
+      font-size: 10.5px;
+    }
+
+    .boy-text { color: var(--blue); }
+    .girl-text { color: var(--pink); }
+
+    .meter-card {
+      margin-top: 13px;
+      padding: 20px;
+    }
+
+    .meter-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+
+    .meter-head span {
+      color: #95899b;
+      font-size: 11px;
+    }
+
+    .meter {
+      height: 13px;
+      display: flex;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #f1ecf3;
+    }
+
+    .bar-boy,
+    .bar-girl {
+      flex: 0 0 auto;
+      height: 100%;
+      transition: width 0.45s ease;
+    }
+
+    .bar-boy {
+      background: #8cb4e3;
+    }
+
+    .bar-girl {
+      background: #e0a4c4;
+    }
+
+    .meter-legend {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 9px;
+      color: #817485;
+      font-size: 11px;
+    }
+
+    .list-card {
+      margin-top: 13px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 19px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .list-header span {
+      color: #a093a6;
+      font-size: 10.5px;
+    }
+
+    .guess-list {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .guess {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(115, 91, 130, 0.08);
+      transition: 0.15s ease;
+    }
+
+    .guess:hover { background: rgba(250,247,251,0.72); }
+
+    .guess:last-child { border-bottom: 0; }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #f4eff7;
+      color: #876b98;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .person-name {
+      font-size: 13px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .person-time {
+      margin-top: 3px;
+      color: #a59aa9;
+      font-size: 10px;
+    }
+
+    .badge {
+      min-width: 83px;
+      padding: 9px 10px;
+      border-radius: 999px;
+      text-align: center;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .badge.boy { background: #eaf3ff; color: var(--blue); }
+    .badge.girl { background: #ffedf5; color: var(--pink); }
+
+    .empty {
+      padding: 38px 20px;
+      text-align: center;
+      color: #a095a7;
+      font-size: 12px;
+    }
+
+    .loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a78db7;
+      animation: blink 0.9s infinite alternate;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      from { opacity: 0.25; transform: translateY(1px); }
+      to { opacity: 1; transform: translateY(-1px); }
+    }
+
+    .last-updated {
+      margin-top: 10px;
+      text-align: right;
+      color: #a59aa9;
+      font-size: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .hero { align-items: start; flex-direction: column; }
+      .refresh { width: 100%; }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding-top: 18px; }
+      .card { padding: 19px; border-radius: 22px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { min-height: 105px; }
+      .guess { padding: 14px 15px; }
+      .list-header { padding: 17px 15px; }
+      .badge { min-width: 77px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loginView" class="login-shell">
+    <section class="card login-card">
+      <div class="login-icon" aria-hidden="true">🎀</div>
+      <h1>Organizer</h1>
+      <p class="subtitle">Private Gender Reveal Guess Dashboard</p>
+
+      <form class="form" onsubmit="event.preventDefault(); login();">
+        <label class="field-label" for="email">Email</label>
+        <input id="email" type="email" placeholder="Organizer email" autocomplete="email" required>
+
+        <label class="field-label" for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+
+        <button class="primary" type="submit">Open dashboard →</button>
+        <div class="error" id="loginError" role="alert"></div>
+      </form>
+    </section>
+  </div>
+
+  <main id="dashboard" class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🍼</div>
+        <div>
+          <p class="brand-title">Gender Reveal</p>
+          <p class="brand-sub">Organizer control center</p>
+        </div>
+      </div>
+
+      <button class="logout" onclick="logout()">Log out</button>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="kicker">Live predictions</span>
+        <h1>Who's guessing what?</h1>
+        <p class="subtitle">A live view of every prediction submitted for the reveal.</p>
+      </div>
+      <button class="refresh" onclick="loadGuesses()">↻ Refresh</button>
+    </section>
+
+    <section class="stats">
+      <div class="stat total card">
+        <div class="stat-label">Total guesses</div>
+        <div class="stat-number" id="total">0</div>
+        <div class="stat-note">Everyone who joined in</div>
+      </div>
+
+      <div class="stat boy card">
+        <div class="stat-label">💙 Boy</div>
+        <div class="stat-number boy-text" id="boyCount">0</div>
+        <div class="stat-note" id="boyPercent">0% of guesses</div>
+      </div>
+
+      <div class="stat girl card">
+        <div class="stat-label">💗 Girl</div>
+        <div class="stat-number girl-text" id="girlCount">0</div>
+        <div class="stat-note" id="girlPercent">0% of guesses</div>
+      </div>
+    </section>
+
+    <section class="card meter-card">
+      <div class="meter-head">
+        <h2>Prediction split</h2>
+        <span>Live from Supabase</span>
+      </div>
+
+      <div class="meter" aria-label="Prediction split">
+        <div id="barBoy" class="bar-boy"></div>
+        <div id="barGirl" class="bar-girl"></div>
+      </div>
+
+      <div class="meter-legend">
+        <span id="boyLegend">💙 Boy · 0%</span>
+        <span id="girlLegend">💗 Girl · 0%</span>
+      </div>
+    </section>
+
+    <section class="card list-card">
+      <div class="list-header">
+        <h2>Everyone's predictions</h2>
+        <span id="guessCountLabel">0 entries</span>
+      </div>
+
+      <div id="guesses" class="guess-list">
+        <div class="empty">
+          <span class="loading">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            Loading guesses
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <div id="lastUpdated" class="last-updated"></div>
+  </main>
+
+  <script>
+    const SUPABASE_URL = "https://dgnyxlwziobmqyzdibne.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vTRRXyqzT1LCluyMBt8eeQ_EgnsBjnE";
+
+    const sb = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    function setLoginError(message = "") {
+      document.getElementById("loginError").textContent = message;
+    }
+
+    async function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      setLoginError("");
+
+      const { error } = await sb.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        setLoginError("Login failed. Check the email and password and try again.");
+        console.error(error);
+        return;
+      }
+
+      showDashboard();
+    }
+
+    function showDashboard() {
+      document.getElementById("loginView").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      loadGuesses();
+    }
+
+    function percentage(part, total) {
+      return total ? Math.round((part / total) * 100) : 0;
+    }
+
+    function formatTime(value) {
+      if (!value) return "";
+      const date = new Date(value);
+      return date.toLocaleString([], {
+        day: "numeric",
+        month: "short",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    function initials(name) {
+      return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(word => word[0].toUpperCase())
+        .join("");
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function loadGuesses() {
+      const list = document.getElementById("guesses");
+
+      list.innerHTML = `
+        <div class="empty">
+          <span class="loading">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            Loading guesses
+          </span>
+        </div>
+      `;
+
+      const { data, error } = await sb
+        .from("guesses")
+        .select("name, guess, created_at")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        list.innerHTML = `<div class="empty">Could not load the guesses right now.</div>`;
+        console.error(error);
+        return;
+      }
+
+      const guesses = data || [];
+      const total = guesses.length;
+      const boyCount = guesses.filter(item => item.guess === "boy").length;
+      const girlCount = guesses.filter(item => item.guess === "girl").length;
+
+      const boyPercent = percentage(boyCount, total);
+      const girlPercent = percentage(girlCount, total);
+
+      document.getElementById("total").textContent = total;
+      document.getElementById("boyCount").textContent = boyCount;
+      document.getElementById("girlCount").textContent = girlCount;
+
+      document.getElementById("boyPercent").textContent = `${boyPercent}% of guesses`;
+      document.getElementById("girlPercent").textContent = `${girlPercent}% of guesses`;
+
+      document.getElementById("barBoy").style.width = `${boyPercent}%`;
+      document.getElementById("barGirl").style.width = `${girlPercent}%`;
+
+      document.getElementById("boyLegend").textContent = `💙 Boy · ${boyPercent}%`;
+      document.getElementById("girlLegend").textContent = `💗 Girl · ${girlPercent}%`;
+      document.getElementById("guessCountLabel").textContent =
+        `${total} ${total === 1 ? "entry" : "entries"}`;
+
+      if (!guesses.length) {
+        list.innerHTML = `
+          <div class="empty">
+            No predictions yet — share the guest link to get things started. ✨
+          </div>
+        `;
+      } else {
+        list.innerHTML = guesses.map(item => {
+          const isBoy = item.guess === "boy";
+          const guessClass = isBoy ? "boy" : "girl";
+          const guessText = isBoy ? "💙 BOY" : "💗 GIRL";
+          const safeName = escapeHTML(item.name);
+          return `
+            <div class="guess">
+              <div class="person">
+                <div class="avatar">${escapeHTML(initials(item.name))}</div>
+                <div>
+                  <div class="person-name">${safeName}</div>
+                  <div class="person-time">${escapeHTML(formatTime(item.created_at))}</div>
+                </div>
+              </div>
+              <div class="badge ${guessClass}">${guessText}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      document.getElementById("lastUpdated").textContent =
+        `Updated ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
+    }
+
+    async function logout() {
+      await sb.auth.signOut();
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("loginView").style.display = "grid";
+      setLoginError("");
+    }
+
+    sb.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        showDashboard();
+      }
+    });
+  </script>
+</body>
+</html>
