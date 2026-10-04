@@ -271,6 +271,35 @@
       background: white;
     }
 
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .reset {
+      min-width: 126px;
+      height: 43px;
+      border: 1px solid rgba(196, 72, 92, 0.25);
+      border-radius: 13px;
+      background: rgba(255, 240, 242, 0.80);
+      color: #b03f55;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .reset:hover {
+      transform: translateY(-1px);
+      background: #ffe3e8;
+    }
+
+    .reset:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      transform: none;
+    }
+
     .stats {
       display: grid;
       grid-template-columns: 1.1fr 1fr 1fr;
@@ -399,6 +428,30 @@
       font-size: 10.5px;
     }
 
+    .list-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-toggle {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.70);
+      color: #725e80;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-toggle[aria-pressed="true"] {
+      border-color: var(--purple);
+      background: var(--purple);
+      color: white;
+    }
+
     .guess-list {
       max-height: 500px;
       overflow-y: auto;
@@ -503,7 +556,8 @@
 
     @media (max-width: 700px) {
       .hero { align-items: start; flex-direction: column; }
-      .refresh { width: 100%; }
+      .hero-actions { width: 100%; }
+      .refresh, .reset { flex: 1; }
     }
 
     @media (max-width: 560px) {
@@ -564,7 +618,10 @@
         <h1>Who's guessing what?</h1>
         <p class="subtitle">A live view of every prediction submitted for the reveal.</p>
       </div>
-      <button class="refresh" onclick="loadGuesses()">↻ Refresh</button>
+      <div class="hero-actions">
+        <button class="refresh" onclick="loadGuesses()">↻ Refresh</button>
+        <button class="reset" id="resetButton" onclick="resetGuesses()">🗑 Reset all</button>
+      </div>
     </section>
 
     <section class="stats">
@@ -607,7 +664,11 @@
     <section class="card list-card">
       <div class="list-header">
         <h2>Everyone's predictions</h2>
-        <span id="guessCountLabel">0 entries</span>
+        <div class="list-tools">
+          <span id="guessCountLabel">0 entries</span>
+          <button class="filter-toggle" id="uniqueToggle" aria-pressed="false"
+            onclick="toggleUnique()">Unique only</button>
+        </div>
       </div>
 
       <div id="guesses" class="guess-list">
@@ -624,7 +685,7 @@
   </main>
 
   <script>
-    const SUPABASE_URL = "https://dgnyxlwziobmqyzdibne.supabase.co";
+    const SUPABASE_URL = "https://dgnyxlwziobmqydzibne.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vTRRXyqzT1LCluyMBt8eeQ_EgnsBjnE";
 
     const sb = window.supabase.createClient(
@@ -648,7 +709,7 @@
       });
 
       if (error) {
-        setLoginError("Login failed. Check the email and password and try again.");
+        setLoginError(error.message); // Show the actual error from Supabase
         console.error(error);
         return;
       }
@@ -695,6 +756,9 @@
         .replaceAll("'", "&#039;");
     }
 
+    let allGuesses = [];
+    let showUniqueOnly = false;
+
     async function loadGuesses() {
       const list = document.getElementById("guesses");
 
@@ -718,7 +782,33 @@
         return;
       }
 
-      const guesses = data || [];
+      allGuesses = data || [];
+      renderGuesses();
+    }
+
+    // Names are matched case- and whitespace-insensitively. Rows arrive newest
+    // first, so the first one seen for each name is that person's latest guess.
+    function uniqueByName(guesses) {
+      const seen = new Set();
+      return guesses.filter(item => {
+        const key = item.name.trim().toLowerCase().replace(/\s+/g, " ");
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function toggleUnique() {
+      showUniqueOnly = !showUniqueOnly;
+      document.getElementById("uniqueToggle")
+        .setAttribute("aria-pressed", String(showUniqueOnly));
+      renderGuesses();
+    }
+
+    function renderGuesses() {
+      const list = document.getElementById("guesses");
+      const guesses = showUniqueOnly ? uniqueByName(allGuesses) : allGuesses;
+      const hidden = allGuesses.length - guesses.length;
       const total = guesses.length;
       const boyCount = guesses.filter(item => item.guess === "boy").length;
       const girlCount = guesses.filter(item => item.guess === "girl").length;
@@ -739,7 +829,8 @@
       document.getElementById("boyLegend").textContent = `💙 Boy · ${boyPercent}%`;
       document.getElementById("girlLegend").textContent = `💗 Girl · ${girlPercent}%`;
       document.getElementById("guessCountLabel").textContent =
-        `${total} ${total === 1 ? "entry" : "entries"}`;
+        `${total} ${total === 1 ? "entry" : "entries"}` +
+        (hidden ? ` · ${hidden} duplicate${hidden === 1 ? "" : "s"} hidden` : "");
 
       if (!guesses.length) {
         list.innerHTML = `
@@ -772,6 +863,48 @@
         `Updated ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
     }
 
+    async function resetGuesses() {
+      const answer = prompt(
+        "This permanently deletes every guess. Type RESET to confirm."
+      );
+      if (answer === null) return;
+      if (answer.trim().toUpperCase() !== "RESET") {
+        alert("Reset cancelled — you didn't type RESET.");
+        return;
+      }
+
+      const button = document.getElementById("resetButton");
+      button.disabled = true;
+      button.textContent = "Resetting…";
+
+      // Supabase requires a filter on delete; this matches every row.
+      const { error } = await sb
+        .from("guesses")
+        .delete()
+        .gte("created_at", "1970-01-01");
+
+      if (error) {
+        console.error(error);
+        alert(`Could not reset the guesses: ${error.message}`);
+      } else {
+        // RLS silently skips rows it won't let us delete, so double-check.
+        const { count } = await sb
+          .from("guesses")
+          .select("*", { count: "exact", head: true });
+
+        if (count) {
+          alert(
+            `${count} guesses could not be deleted. Make sure the guesses table ` +
+            "has a delete policy for signed-in organizers."
+          );
+        }
+      }
+
+      button.disabled = false;
+      button.textContent = "🗑 Reset all";
+      loadGuesses();
+    }
+
     async function logout() {
       await sb.auth.signOut();
       document.getElementById("dashboard").style.display = "none";
@@ -786,4 +919,4 @@
     });
   </script>
 </body>
-</html>
+</html>

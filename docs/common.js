@@ -15,11 +15,14 @@ const addNavbar = (currentPage) => {
     "bg-light"
   );
 
-  const brand = document.createElement("a");
-  brand.classList.add("navbar-brand", "ms-2");
-  brand.href = "index.html";
-  brand.textContent = "anant-pathak.github.io";
-  nav.appendChild(brand);
+  // The Baby Shower page is shared with guests, so it skips the site title
+  if (!currentPage.includes("baby_shower_prediction.html")) {
+    const brand = document.createElement("a");
+    brand.classList.add("navbar-brand", "ms-2");
+    brand.href = "index.html";
+    brand.textContent = "anant-pathak.github.io";
+    nav.appendChild(brand);
+  }
 
   const button = document.createElement("button");
   button.classList.add("navbar-toggler");
