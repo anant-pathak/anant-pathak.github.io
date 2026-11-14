@@ -16,7 +16,7 @@ const addNavbar = (currentPage) => {
   );
 
   // Guest-facing pages are shared with guests, so they skip the site title
-  const guestPages = ["baby_shower_prediction.html", "baby_shower_rsvp.html"];
+  const guestPages = ["baby_shower_prediction.html"];
   const isGuestPage = guestPages.some((page) => currentPage.includes(page));
 
   if (!isGuestPage) {
