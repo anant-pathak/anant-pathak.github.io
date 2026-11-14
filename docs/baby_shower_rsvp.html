@@ -47,6 +47,8 @@
 
     * { box-sizing: border-box; }
 
+    html { touch-action: manipulation; }
+
     body {
       margin: 0;
       color: var(--text);
@@ -242,6 +244,24 @@
       line-height: 1.1;
     }
 
+    .play-hint {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      z-index: 20;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      white-space: nowrap;
+      color: var(--ink-pink-dark);
+      background: rgba(255, 253, 251, 0.9);
+      border: 1px solid rgba(201, 100, 120, 0.25);
+      box-shadow: 0 8px 22px rgba(201, 100, 120, 0.16);
+      opacity: 0;
+      pointer-events: none;
+    }
     .scroll-hint {
       position: absolute;
       left: 50%;
@@ -849,6 +869,7 @@
         </div>
 
         <div class="mobile-top" aria-hidden="true"></div>
+        <div class="play-hint" aria-hidden="true">✨ Psst… tap the animals, they love to play!</div>
         <div class="scroll-hint"><strong>Scroll down to open</strong><span class="arrow">↓</span></div>
       </div>
     </section>
@@ -1131,6 +1152,7 @@
       const flap = document.querySelector(".env-flap");
       const envParts = document.querySelectorAll(".env-back, .env-front, .env-front-edge, .env-flap");
       const hint = document.querySelector(".scroll-hint");
+      const playHint = document.querySelector(".play-hint");
       const details = document.querySelector(".details");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1192,6 +1214,13 @@
         card.style.transform = `translateY(${stageY - envY}px) scale(${scale})`;
         card.style.zIndex = rise >= 1 ? 10 : 3;
 
+        // Once the card has settled, invite guests to play, in the space above it
+        const cardTop = vh / 2 + centre - CH / 2;
+        const hintH = playHint.offsetHeight;
+        const roomAbove = cardTop - hintH - 14 > 4;
+        playHint.style.transform = `translate(-50%, ${Math.max(4, cardTop - hintH - 14)}px)`;
+        playHint.style.opacity = roomAbove ? seg(p, 0.8, 0.9) : 0;
+
         const fade = 1 - seg(p, 0.62, 0.8);
 
         // Night brightens into day while the card comes out
@@ -1206,7 +1235,7 @@
         hint.style.transform = `translate(-50%, ${envTop - hint.offsetHeight - 18}px)`;
         hint.style.opacity = 1 - seg(p, 0.01, 0.12);
 
-        // Mini mobile hangs below the navbar and clears out before the card rises into it
+        // Mini mobile hangs from the top and clears out before the card rises into it
         mobileTop.style.top = `${navH}px`;
         const mobileOpacity = 1 - seg(p, 0.18, 0.4);
         mobileTop.style.opacity = mobileOpacity;
@@ -1305,7 +1334,7 @@
         const guests = response === "declined" ? 1 : clampGuests(guestsInput.value);
         const comment = commentInput.value.trim();
         const email = emailInput.value.trim();
-        guestsInput.value = guests;
+        if (response !== "declined") guestsInput.value = guests;
 
         if (!response) return showError("Please pick one of the options above.");
         if (!name) {
@@ -1341,7 +1370,8 @@
           return;
         }
 
-        const saved = { response, name, guests, comment, email };
+        // Remember the count they entered (not the 1 sent for declines) for "Change my response"
+        const saved = { response, name, guests: clampGuests(guestsInput.value), comment, email };
         rememberRsvp(saved);
         showThanks(saved, false);
         thanks.scrollIntoView({ behavior: "smooth", block: "center" });
