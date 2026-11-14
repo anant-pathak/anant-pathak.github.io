@@ -2,8 +2,10 @@
 //
 // Triggered by a Supabase Database Webhook on public.rsvps (INSERT and UPDATE).
 // RSVPs are keyed by email, so a guest changing their answer is an UPDATE and
-// the email shows what it was before. Sends through
-// Gmail SMTP using an app password, so no third-party email service is needed.
+// the email shows what it was before. Sends through Gmail SMTP with an app
+// password via Nodemailer, so no third-party email service is needed.
+// (Nodemailer replaced denomailer, whose header/quoted-printable encoding broke
+// emails with long emoji subjects and leaked "=20" into bodies.)
 //
 // Secrets (Edge Functions -> Secrets):
 //   GMAIL_USER          the Gmail address that sends the alerts
@@ -12,7 +14,7 @@
 //   WEBHOOK_SECRET      any long random string; the webhook sends it in the
 //                       x-webhook-secret header so nobody else can trigger emails
 
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import nodemailer from "npm:nodemailer@6.9.16";
 
 type Rsvp = {
   name: string;
@@ -133,18 +135,20 @@ Deno.serve(async (req) => {
         ${row("Name", `<strong>${escapeHtml(rsvp.name)}</strong>`)}
         ${row("Response", escapeHtml(label))}
         ${previous ? row("Was", `<span style="color:#9a7c83">${escapeHtml(previous)}</span>`) : ""}
-        ${row("Total guests", String(rsvp.guest_count))}
+        ${row("Total guests", rsvp.response === "declined" ? "—" : String(rsvp.guest_count))}
         ${row("Comment", rsvp.comment ? escapeHtml(rsvp.comment).replace(/\n/g, "<br>") : "<em style='color:#b9a4a9'>none</em>")}
         ${row("Email", `<a href="mailto:${escapeHtml(rsvp.email)}" style="color:#c96478">${escapeHtml(rsvp.email)}</a>`)}
       </table>
       ${summaryHtml}
-    </div>`;
+    </div>`
+    // Drop the template's indentation and line breaks; keeps the HTML compact.
+    .replace(/\n\s*/g, "");
 
   const text =
     `${isUpdate ? "Updated" : "New"} baby shower RSVP (${when} Pacific)\n\n` +
     `Name: ${rsvp.name}\nResponse: ${label}\n` +
     (previous ? `Was: ${previous}\n` : "") +
-    `Total guests: ${rsvp.guest_count}\n` +
+    (rsvp.response === "declined" ? "" : `Total guests: ${rsvp.guest_count}\n`) +
     `Comment: ${rsvp.comment ?? "none"}\nEmail: ${rsvp.email}\n` +
     (tally
       ? `\nTotals so far\n${summaryLines.join("\n")}\nExpected headcount: ${tally.attending.guests}` +
@@ -152,33 +156,25 @@ Deno.serve(async (req) => {
         "\n"
       : "");
 
-  const client = new SMTPClient({
-    connection: {
-      hostname: "smtp.gmail.com",
-      port: 465,
-      tls: true,
-      auth: { username: gmailUser, password: Deno.env.get("GMAIL_APP_PASSWORD")! },
-    },
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user: gmailUser, pass: Deno.env.get("GMAIL_APP_PASSWORD")! },
   });
 
   try {
-    await client.send({
-      from: `Baby Shower RSVPs <${gmailUser}>`,
+    await transporter.sendMail({
+      from: { name: "Baby Shower RSVPs", address: gmailUser },
       to: recipients,
       replyTo: rsvp.email,
       subject,
-      content: text,
+      text,
       html,
     });
   } catch (error) {
     console.error("Failed to send RSVP alert:", error);
     return new Response("Email failed", { status: 500 });
-  } finally {
-    // close() may or may not return a promise; await + try covers both, and
-    // keeps a cleanup error from overriding the response after a successful send.
-    try {
-      await client.close();
-    } catch {}
   }
 
   return new Response("Sent", { status: 200 });
