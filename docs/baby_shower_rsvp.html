@@ -87,6 +87,10 @@
       height: 340vh;
       z-index: 1;
     }
+    /* Phones: less scrolling to get the card out */
+    @media (max-width: 700px) {
+      .scrolly { height: 210vh; }
+    }
     .stage {
       position: sticky;
       top: 0;
@@ -301,7 +305,7 @@
     .side-art.right { right: 0; }
     @media (min-width: 1200px) {
       .side-art { display: block; }
-      .mobile-top, .footer-scene { display: none; }
+      .mobile-top, .footer-scene, .pc-tip { display: none; }
     }
 
     /* Narrow screens: a mini mobile above the envelope and a snowy footer scene */
@@ -328,6 +332,20 @@
       overflow: visible;
     }
     .footer-scene svg + svg { margin-left: -4%; }
+    .credit {
+      margin: 40px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: #a3878d;
+    }
+    .credit span { color: var(--ink-pink); }
+    .pc-tip {
+      margin: 28px 0 0;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #a3878d;
+    }
     .hang {
       position: absolute;
       top: 0;
@@ -702,7 +720,7 @@
 
       <div class="rsvp-panel" id="rsvp">
         <form id="rsvpForm" novalidate>
-          <h2>Will you join us?</h2>
+          <h2>RSVP</h2>
           <p class="rsvp-sub">Let us know by tapping one of the options below</p>
 
           <fieldset class="choices">
@@ -755,6 +773,9 @@
           <button class="link-btn" type="button" id="rsvpChange">Change my response</button>
         </div>
       </div>
+
+      <p class="pc-tip">✨ Psst, open this on a computer for a few extra surprises!</p>
+      <p class="credit">Created with <span aria-label="love">♥</span> by Anant, with inputs from Payal &amp; Coco</p>
 
       <div class="footer-scene" aria-hidden="true"><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradFL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 250 Q70 190 160 205 Q250 218 330 180 L330 290 L-10 290Z" fill="url(#hillGradFL)"/><g transform="translate(150 0)" stroke-linecap="round"><ellipse cx="0" cy="252" rx="56" ry="8" fill="#ecd9de" opacity="0.7"/><circle cx="0" cy="212" r="44" fill="#fff" stroke="#efdfe3" stroke-width="2"/><circle cx="0" cy="150" r="33" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-28 140L-62 116M-50 124L-58 108" stroke="#a5806b" stroke-width="4" fill="none"/><g class="snowman-arm"><path d="M28 140L62 112M52 120L64 106M52 120L66 124" stroke="#a5806b" stroke-width="4" fill="none"/></g><circle cx="0" cy="98" r="25" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-24 92Q-26 62 0 60Q26 62 24 92Z" fill="#f3a5b2"/><rect x="-27" y="86" width="54" height="9" rx="4.5" fill="#e7899a"/><circle cx="0" cy="58" r="8" fill="#fff" stroke="#f1c9d0" stroke-width="2"/><circle cx="-8" cy="102" r="2.8" fill="#5a4448"/><circle cx="8" cy="102" r="2.8" fill="#5a4448"/><path d="M0 107L16 110L0 112Z" fill="#f2a46a"/><circle cx="-14" cy="110" r="4" fill="#f6c3cb"/><circle cx="14" cy="110" r="4" fill="#f6c3cb"/><path d="M-7 116q7 5 14 0" stroke="#5a4448" stroke-width="2" fill="none"/><path d="M-26 122Q0 134 26 122L26 130Q0 142-26 130Z" fill="#a8c3bf"/><path d="M14 128L22 158L12 160L6 131Z" fill="#a8c3bf"/><circle cx="0" cy="146" r="3.5" fill="#e7899a"/><circle cx="0" cy="162" r="3.5" fill="#e7899a"/><circle cx="0" cy="200" r="3.5" fill="#e7899a"/></g><g transform="translate(262 150) scale(0.75)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#a8c3bf"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#a8c3bf"/></g></svg><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradFR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 180 Q70 218 160 205 Q250 190 330 250 L330 290 L-10 290Z" fill="url(#hillGradFR)"/><g transform="translate(70 0)"><ellipse cx="88" cy="250" rx="100" ry="8" fill="#ecd9de" opacity="0.7"/><g transform="translate(0 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f3a5b2"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#a8c3bf"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">A</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(120 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f4c98a"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 130)" class="block-top"><rect x="0" y="0" width="58" height="58" rx="8" fill="#cdb8e6"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">Y</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g></g><g transform="translate(40 168) scale(0.6)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#f3b1bb"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#f3b1bb"/></g></svg></div>
 
@@ -911,6 +932,7 @@
       const flap = document.querySelector(".env-flap");
       const envParts = document.querySelectorAll(".env-back, .env-front, .env-front-edge, .env-flap");
       const hint = document.querySelector(".scroll-hint");
+      const details = document.querySelector(".details");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const clamp = (v) => Math.min(1, Math.max(0, v));
@@ -928,7 +950,8 @@
         const avail = vh - navH;
         W = Math.min(vw * 0.86, 460);
         H = W * 0.66;
-        CW = Math.min(vw * 0.9, avail * 0.88 * (VB_W / VB_H), 470);
+        // Phones: let the card use nearly the full width
+        CW = Math.min(vw * (vw < 600 ? 0.98 : 0.9), avail * 0.92 * (VB_W / VB_H), 470);
         CH = CW * (VB_H / VB_W);
         s0 = (0.86 * H) / CH;
         envelope.style.width = `${W}px`;
@@ -940,6 +963,9 @@
         card.style.marginLeft = `${-CW / 2}px`;
         card.style.marginTop = `${-CH / 2}px`;
         card.style.fontSize = `${CW / 24}px`;
+        // Pull the details up into the empty space under the settled card
+        const spaceBelow = vh / 2 - navH / 2 - CH / 2;
+        details.style.marginTop = `${-Math.max(0, spaceBelow - 12)}px`;
         update();
       };
 
@@ -947,9 +973,9 @@
         const rect = scrolly.getBoundingClientRect();
         const p = reduceMotion ? 1 : clamp(-rect.top / (rect.height - vh));
 
-        const open = ease(seg(p, 0.02, 0.22));   // flap opens
-        const rise = ease(seg(p, 0.22, 0.55));   // card slides up out of envelope
-        const settle = ease(seg(p, 0.58, 0.92)); // card centres & grows, envelope drops away
+        const open = ease(seg(p, 0.02, 0.2));    // flap opens
+        const rise = ease(seg(p, 0.2, 0.48));    // card slides up out of envelope
+        const settle = ease(seg(p, 0.5, 0.8));   // card centres & grows, envelope drops away
 
         const centre = navH / 2;
         const envY0 = centre + H * 0.55;
@@ -967,7 +993,7 @@
         card.style.transform = `translateY(${stageY - envY}px) scale(${scale})`;
         card.style.zIndex = rise >= 1 ? 10 : 3;
 
-        const fade = 1 - seg(p, 0.7, 0.92);
+        const fade = 1 - seg(p, 0.62, 0.8);
         envParts.forEach((el) => (el.style.opacity = fade));
 
         // Hint sits just above the envelope and fades out as the flap opens
