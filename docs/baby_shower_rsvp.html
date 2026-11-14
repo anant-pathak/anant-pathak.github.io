@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Baby Shower RSVP ❄️ Payal &amp; Anant</title>
+  <meta name="description" content="Join us for a winter wonderland baby shower celebrating Payal &amp; Anant — Sunday, December 13, 2026 in Vancouver, WA." />
+
+  <!-- Link previews (WhatsApp, iMessage, Facebook, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anant-pathak.github.io/baby_shower_rsvp.html" />
+  <meta property="og:title" content="❄️ You're invited to a winter wonderland baby shower" />
+  <meta property="og:description" content="Celebrating Payal &amp; Anant — Sunday, December 13, 2026 at 12 PM in Vancouver, WA." />
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script defer src="common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Sacramento&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --cream: #fbf3ea;
+      --cream-deep: #f3e3d2;
+      --ink-pink: #e7899a;
+      --ink-pink-dark: #c96478;
+      --sage: #a8c3bf;
+      --env: #f0a3ad;
+      --env-dark: #e2899a;
+      --env-back: #e48f9c;
+      --liner: #f9cdd3;
+      --paper: #fffdfb;
+      --text: #6d5258;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "DM Mono", ui-monospace, monospace;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.8), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(249, 205, 211, 0.45), transparent 40%),
+        linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Falling snow ---------- */
+    .snow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .snow span {
+      position: absolute;
+      top: -10px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.85;
+      box-shadow: 0 0 4px rgba(231, 137, 154, 0.25);
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      to { transform: translate3d(var(--drift), 105vh, 0); }
+    }
+
+    /* ---------- Scroll-driven envelope stage ---------- */
+    .scrolly {
+      position: relative;
+      height: 340vh;
+      z-index: 1;
+    }
+    .stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .envelope {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      perspective: 1400px;
+      will-change: transform;
+    }
+    .env-back,
+    .env-front,
+    .env-front-edge,
+    .env-flap {
+      position: absolute;
+      inset: 0;
+    }
+    .env-back {
+      z-index: 2;
+      border-radius: 6px;
+      background:
+        linear-gradient(180deg, var(--liner) 0 38%, var(--env-back) 38%);
+      box-shadow: 0 30px 60px rgba(150, 70, 85, 0.22);
+    }
+    .env-front-edge {
+      z-index: 4;
+      background: var(--env-dark);
+      clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+      transform: translateY(-2px);
+    }
+    .env-front {
+      z-index: 4;
+      border-radius: 0 0 6px 6px;
+      clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+      background:
+        radial-gradient(circle, #fff 0 2.4px, transparent 2.9px) 0 0 / 22px 22px,
+        linear-gradient(160deg, #f4b0b9, var(--env));
+    }
+    .env-flap {
+      z-index: 6;
+      transform-origin: 50% 0;
+      filter: drop-shadow(0 3px 2px rgba(160, 70, 90, 0.25));
+    }
+    .flap-shape {
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      border-radius: 6px 6px 0 0;
+      background:
+        radial-gradient(circle, #fff 0 2.4px, transparent 2.9px) 11px 11px / 22px 22px,
+        linear-gradient(180deg, #f6b8c0, var(--env));
+    }
+    .env-flap.is-open .flap-shape {
+      background: var(--liner);
+    }
+
+    /* ---------- The card ---------- */
+    .card-invite {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      will-change: transform;
+      filter: drop-shadow(0 18px 28px rgba(140, 70, 85, 0.2));
+    }
+    .card-invite svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .card-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 60%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--ink-pink);
+    }
+    .card-text .caps {
+      margin: 0;
+      font-size: 0.76em;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.55;
+    }
+    .card-text .title {
+      margin: 0.25em 0 0.3em;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 2.3em;
+      line-height: 1.02;
+      letter-spacing: 0.01em;
+    }
+    .card-text .honoree {
+      margin: 0.1em 0 0.25em;
+      font-family: "Sacramento", cursive;
+      font-size: 2.1em;
+      line-height: 1.1;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .scroll-hint strong {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-pink-dark);
+      background: rgba(255, 253, 251, 0.92);
+      border: 1.5px solid rgba(201, 100, 120, 0.35);
+      box-shadow: 0 10px 26px rgba(201, 100, 120, 0.22);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    .scroll-hint .arrow {
+      font-size: 22px;
+      line-height: 1;
+      color: var(--ink-pink-dark);
+      animation: bob 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 10px 26px rgba(201, 100, 120, 0.22); }
+      50% { box-shadow: 0 10px 34px rgba(201, 100, 120, 0.42); }
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ---------- Moving characters ---------- */
+    .card-invite .m,
+    .card-invite .blink,
+    .card-invite .zz {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+    }
+    .m-pine, .m-fir, .m-bare { animation: sway 5s ease-in-out infinite; }
+    .m-snow { transform-origin: 50% 50% !important; animation: spin 16s linear infinite; }
+    .m-owl { animation: tilt 4s ease-in-out infinite; }
+    .m-penguin { animation: waddle 1.4s ease-in-out infinite; }
+    .m-bunny { animation: hop 2.6s ease-in-out infinite; }
+    .m-fox { animation: breathe 3.2s ease-in-out infinite; }
+    .m-hedgehog { animation: shuffle 4s ease-in-out infinite; }
+    .card-invite .blink { transform-origin: 50% 50%; animation: blink 4.5s infinite; }
+    .card-invite .zz { animation: snooze 3.2s ease-in-out infinite; }
+
+    @keyframes sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes tilt {
+      0%, 35%, 100% { transform: rotate(0); }
+      45% { transform: rotate(-9deg); }
+      60% { transform: rotate(7deg); }
+      70% { transform: rotate(0); }
+    }
+    @keyframes waddle {
+      0%, 100% { transform: rotate(-7deg) translateY(0); }
+      25% { transform: rotate(0) translateY(-3px); }
+      50% { transform: rotate(7deg) translateY(0); }
+      75% { transform: rotate(0) translateY(-3px); }
+    }
+    @keyframes hop {
+      0%, 55%, 100% { transform: translateY(0) scale(1, 1); }
+      62% { transform: translateY(0) scale(1.05, 0.93); }
+      74% { transform: translateY(-16px) scale(0.96, 1.05); }
+      86% { transform: translateY(0) scale(1.04, 0.95); }
+      93% { transform: translateY(0) scale(1, 1); }
+    }
+    @keyframes breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, 1.07); } }
+    @keyframes shuffle {
+      0%, 100% { transform: translateX(0) rotate(0); }
+      20% { transform: translateX(-5px) rotate(-3deg); }
+      40% { transform: translateX(-9px) rotate(0); }
+      70% { transform: translateX(-3px) rotate(2deg); }
+    }
+    @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.1); } }
+    @keyframes snooze {
+      0% { transform: translate(0, 4px); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translate(6px, -10px); opacity: 0; }
+    }
+
+    /* ---------- Side art (wide screens only): nursery mobile + snowy corners ---------- */
+    .side-art {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      z-index: 0;
+      width: min(340px, calc((100vw - 920px) / 2));
+      pointer-events: none;
+    }
+    .side-art.left { left: 0; }
+    .side-art.right { right: 0; }
+    @media (min-width: 1200px) {
+      .side-art { display: block; }
+      .mobile-top, .footer-scene { display: none; }
+    }
+
+    /* Narrow screens: a mini mobile above the envelope and a snowy footer scene */
+    .mobile-top {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 0;
+      z-index: 15;
+      pointer-events: none;
+    }
+    .footer-scene {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      max-width: 560px;
+      margin: 48px auto -96px;
+    }
+    .footer-scene svg {
+      display: block;
+      width: 52%;
+      height: auto;
+      overflow: visible;
+    }
+    .footer-scene svg + svg { margin-left: -4%; }
+    .hang {
+      position: absolute;
+      top: 0;
+      width: var(--size);
+      margin-left: calc(var(--size) / -2);
+      transform-origin: 50% 0;
+      animation: swing var(--dur) ease-in-out var(--delay) infinite alternate;
+    }
+    .hang .string {
+      display: block;
+      width: 1.5px;
+      height: var(--len);
+      margin: 0 auto;
+      background: linear-gradient(rgba(201, 100, 120, 0.12), rgba(201, 100, 120, 0.5));
+    }
+    .hang svg {
+      display: block;
+      width: 100%;
+      margin-top: -3px;
+      overflow: visible;
+      filter: drop-shadow(0 6px 8px rgba(150, 80, 95, 0.15));
+    }
+    @keyframes swing {
+      from { transform: rotate(var(--from, -6deg)); }
+      to { transform: rotate(var(--to, 6deg)); }
+    }
+    .corner {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+    .corner svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .snowman-arm {
+      transform-box: fill-box;
+      transform-origin: 0% 100%;
+      animation: wave 2.6s ease-in-out infinite;
+    }
+    @keyframes wave {
+      0%, 50%, 100% { transform: rotate(0); }
+      60% { transform: rotate(-22deg); }
+      70% { transform: rotate(4deg); }
+      80% { transform: rotate(-22deg); }
+      90% { transform: rotate(0); }
+    }
+    .block-top {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+      animation: wiggle 5s ease-in-out infinite;
+    }
+    @keyframes wiggle {
+      0%, 80%, 100% { transform: rotate(0); }
+      84% { transform: rotate(-6deg); }
+      88% { transform: rotate(5deg); }
+      92% { transform: rotate(-3deg); }
+      96% { transform: rotate(0); }
+    }
+
+    /* ---------- Details ---------- */
+    .details {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 16px 96px;
+      text-align: center;
+    }
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-pink-dark);
+    }
+    .details h2 {
+      margin: 0 0 36px;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(32px, 6.5vw, 48px);
+      color: var(--ink-pink-dark);
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .detail,
+    .rsvp-panel {
+      border-radius: 20px;
+      background: rgba(255, 253, 251, 0.88);
+      border: 1px solid rgba(231, 137, 154, 0.22);
+      box-shadow: 0 16px 40px rgba(150, 80, 95, 0.08);
+    }
+    .detail {
+      padding: 28px 20px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .detail.is-visible { opacity: 1; transform: none; }
+    .detail:nth-child(2) { transition-delay: 0.1s; }
+    .detail:nth-child(3) { transition-delay: 0.2s; }
+    .detail h3 {
+      margin: 0 0 12px;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--ink-pink-dark);
+    }
+    .detail p {
+      margin: 0 0 14px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #5c4248;
+    }
+    .detail a {
+      display: inline-block;
+      color: var(--ink-pink-dark);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 1.5px solid currentColor;
+    }
+
+    /* ---------- RSVP ---------- */
+    .rsvp-panel {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 32px 22px;
+      text-align: left;
+    }
+    .rsvp-panel h2 { text-align: center; margin-bottom: 8px; }
+    .rsvp-sub {
+      margin: 0 0 24px;
+      text-align: center;
+      font-size: 15px;
+      color: #8a6c73;
+    }
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 0 0 8px;
+      padding: 0;
+      border: 0;
+    }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      padding: 16px 10px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(201, 100, 120, 0.28);
+      background: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #5c4248;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .choice span em { font-style: normal; font-size: 26px; line-height: 1; }
+    .choice span:hover { transform: translateY(-2px); }
+    .choice input:checked + span {
+      border-color: var(--ink-pink-dark);
+      background: #fff0f3;
+      box-shadow: 0 10px 24px rgba(201, 100, 120, 0.2);
+    }
+    .choice input:focus-visible + span { outline: 3px solid rgba(201, 100, 120, 0.4); outline-offset: 2px; }
+
+    .rsvp-fields {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .rsvp-fields[hidden] { display: none; }
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-pink-dark);
+    }
+    .field label small {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: #a3878d;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(201, 100, 120, 0.25);
+      background: #fff;
+      font: inherit;
+      font-size: 16px;
+      color: #4a3439;
+    }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field-hint {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: #a3878d;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--ink-pink-dark);
+      box-shadow: 0 0 0 3px rgba(231, 137, 154, 0.2);
+    }
+    .stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stepper button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(201, 100, 120, 0.3);
+      background: #fff;
+      font-size: 22px;
+      line-height: 1;
+      color: var(--ink-pink-dark);
+      cursor: pointer;
+    }
+    .stepper input {
+      width: 72px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .rsvp-submit {
+      justify-self: center;
+      margin-top: 6px;
+      padding: 16px 42px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--ink-pink), var(--ink-pink-dark));
+      box-shadow: 0 14px 30px rgba(201, 100, 120, 0.32);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+    .rsvp-submit:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(201, 100, 120, 0.4); }
+    .rsvp-submit:disabled { opacity: 0.6; cursor: wait; transform: none; }
+    .rsvp-error {
+      margin: 0;
+      text-align: center;
+      font-size: 15px;
+      color: #b4434f;
+    }
+    .rsvp-error:empty { display: none; }
+    .rsvp-thanks {
+      text-align: center;
+      padding: 8px 0;
+    }
+    .rsvp-thanks[hidden] { display: none; }
+    .rsvp-thanks .big { font-size: 46px; margin: 0 0 6px; }
+    .rsvp-thanks h3 {
+      margin: 0 0 10px;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 32px;
+      color: var(--ink-pink-dark);
+    }
+    .rsvp-thanks p { margin: 0 0 18px; font-size: 16px; line-height: 1.7; color: #5c4248; }
+    .link-btn {
+      border: 0;
+      background: none;
+      padding: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-pink-dark);
+      border-bottom: 1.5px solid currentColor;
+      cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .snow, .scroll-hint { display: none; }
+      .card-invite .m, .card-invite .blink, .card-invite .zz { animation: none; }
+      .hang, .snowman-arm, .block-top { animation: none; }
+      .detail { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="snow" aria-hidden="true"></div>
+    <div class="side-art left" aria-hidden="true"><div class="mobile"></div><div class="corner"><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 250 Q70 190 160 205 Q250 218 330 180 L330 290 L-10 290Z" fill="url(#hillGradL)"/><g transform="translate(150 0)" stroke-linecap="round"><ellipse cx="0" cy="252" rx="56" ry="8" fill="#ecd9de" opacity="0.7"/><circle cx="0" cy="212" r="44" fill="#fff" stroke="#efdfe3" stroke-width="2"/><circle cx="0" cy="150" r="33" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-28 140L-62 116M-50 124L-58 108" stroke="#a5806b" stroke-width="4" fill="none"/><g class="snowman-arm"><path d="M28 140L62 112M52 120L64 106M52 120L66 124" stroke="#a5806b" stroke-width="4" fill="none"/></g><circle cx="0" cy="98" r="25" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-24 92Q-26 62 0 60Q26 62 24 92Z" fill="#f3a5b2"/><rect x="-27" y="86" width="54" height="9" rx="4.5" fill="#e7899a"/><circle cx="0" cy="58" r="8" fill="#fff" stroke="#f1c9d0" stroke-width="2"/><circle cx="-8" cy="102" r="2.8" fill="#5a4448"/><circle cx="8" cy="102" r="2.8" fill="#5a4448"/><path d="M0 107L16 110L0 112Z" fill="#f2a46a"/><circle cx="-14" cy="110" r="4" fill="#f6c3cb"/><circle cx="14" cy="110" r="4" fill="#f6c3cb"/><path d="M-7 116q7 5 14 0" stroke="#5a4448" stroke-width="2" fill="none"/><path d="M-26 122Q0 134 26 122L26 130Q0 142-26 130Z" fill="#a8c3bf"/><path d="M14 128L22 158L12 160L6 131Z" fill="#a8c3bf"/><circle cx="0" cy="146" r="3.5" fill="#e7899a"/><circle cx="0" cy="162" r="3.5" fill="#e7899a"/><circle cx="0" cy="200" r="3.5" fill="#e7899a"/></g><g transform="translate(262 150) scale(0.75)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#a8c3bf"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#a8c3bf"/></g></svg></div></div>
+    <div class="side-art right" aria-hidden="true"><div class="mobile"></div><div class="corner"><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 180 Q70 218 160 205 Q250 190 330 250 L330 290 L-10 290Z" fill="url(#hillGradR)"/><g transform="translate(70 0)"><ellipse cx="88" cy="250" rx="100" ry="8" fill="#ecd9de" opacity="0.7"/><g transform="translate(0 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f3a5b2"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#a8c3bf"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">A</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(120 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f4c98a"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 130)" class="block-top"><rect x="0" y="0" width="58" height="58" rx="8" fill="#cdb8e6"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">Y</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g></g><g transform="translate(40 168) scale(0.6)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#f3b1bb"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#f3b1bb"/></g></svg></div></div>
+
+    <section class="scrolly">
+      <div class="stage">
+        <div class="envelope">
+          <div class="env-back"></div>
+
+          <div class="card-invite" role="img" aria-label="Invitation: Please join us for a winter wonderland baby shower celebrating parents-to-be Payal and Anant, Sunday December 13th at 12 PM, Vancouver, Washington">
+            <svg viewBox="0 0 780 1000" aria-hidden="true">
+              <defs>
+                <filter id="grain">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" />
+                  <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.4  0 0 0 0 0.42  0 0 0 0.09 0" />
+                </filter>
+                <clipPath id="cardClip"><path id="cardClipPath" /></clipPath>
+              </defs>
+              <path id="cardShape" fill="#fffdfb" />
+              <rect width="780" height="1000" filter="url(#grain)" clip-path="url(#cardClip)" />
+              <g id="cardDecor"></g>
+            </svg>
+            <div class="card-text">
+              <p class="caps">Please join us for a</p>
+              <p class="title">winter<br />wonderland</p>
+              <p class="caps">Baby shower celebrating<br />parents-to-be</p>
+              <p class="honoree">Payal &amp; Anant</p>
+              <p class="caps">Sunday, December 13th<br />at 12 p.m.<br />Vancouver, Washington</p>
+            </div>
+          </div>
+
+          <div class="env-front-edge"></div>
+          <div class="env-front"></div>
+          <div class="env-flap"><div class="flap-shape"></div></div>
+        </div>
+
+        <div class="mobile-top" aria-hidden="true"></div>
+        <div class="scroll-hint"><strong>Scroll down to open</strong><span class="arrow">↓</span></div>
+      </div>
+    </section>
+
+    <section class="details">
+      <p class="eyebrow">The details</p>
+      <h2>We can't wait to celebrate with you</h2>
+
+      <div class="detail-grid">
+        <article class="detail">
+          <h3>When</h3>
+          <p>Sunday, December 13, 2026<br />12:00 PM Pacific</p>
+        </article>
+        <article class="detail">
+          <h3>Where</h3>
+          <p>13315 NE 84th St<br />Vancouver, WA</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=13315+NE+84th+St+Vancouver+WA" target="_blank" rel="noopener">Open in maps</a>
+        </article>
+        <article class="detail">
+          <h3>Registry</h3>
+          <p>Our baby registry<br />on Amazon</p>
+          <a href="https://www.amazon.com/baby-reg/payal-deora-february-2027-vancouver/113J1B1N2BH1U" target="_blank" rel="noopener">View registry</a>
+        </article>
+      </div>
+
+      <div class="rsvp-panel" id="rsvp">
+        <form id="rsvpForm" novalidate>
+          <h2>Will you join us?</h2>
+          <p class="rsvp-sub">Let us know by tapping one of the options below</p>
+
+          <fieldset class="choices">
+            <legend class="visually-hidden">Your response</legend>
+            <label class="choice">
+              <input type="radio" name="response" value="attending" />
+              <span><em aria-hidden="true">🎉</em>Definitely attending</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="response" value="maybe" />
+              <span><em aria-hidden="true">🤔</em>Will confirm later</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="response" value="declined" />
+              <span><em aria-hidden="true">💌</em>Sorry, can't make it</span>
+            </label>
+          </fieldset>
+
+          <div class="rsvp-fields" id="rsvpFields" hidden>
+            <div class="field">
+              <label for="rsvpName">Your name</label>
+              <input id="rsvpName" name="name" type="text" maxlength="60" autocomplete="name" placeholder="First and last name" required />
+            </div>
+            <div class="field">
+              <label for="rsvpEmail">Email <small>(to receive event details, updates &amp; reminders)</small></label>
+              <input id="rsvpEmail" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required aria-describedby="rsvpEmailHint" />
+              <p class="field-hint" id="rsvpEmailHint">Use the same email if you ever want to change your RSVP.</p>
+            </div>
+            <div class="field">
+              <label for="rsvpGuests">Total guests <small>(including you)</small></label>
+              <div class="stepper">
+                <button type="button" data-step="-1" aria-label="Fewer guests">−</button>
+                <input id="rsvpGuests" name="guests" type="number" inputmode="numeric" min="1" max="20" value="1" />
+                <button type="button" data-step="1" aria-label="More guests">+</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="rsvpComment">Comment <small>(optional)</small></label>
+              <textarea id="rsvpComment" name="comment" maxlength="500" placeholder="A note for Payal &amp; Anant, dietary needs, anything!"></textarea>
+            </div>
+            <p class="rsvp-error" id="rsvpError" role="alert"></p>
+            <button class="rsvp-submit" id="rsvpSubmit" type="submit">Send RSVP</button>
+          </div>
+        </form>
+
+        <div class="rsvp-thanks" id="rsvpThanks" hidden aria-live="polite">
+          <p class="big" id="thanksEmoji" aria-hidden="true">🎉</p>
+          <h3 id="thanksTitle">Thank you!</h3>
+          <p id="thanksText"></p>
+          <button class="link-btn" type="button" id="rsvpChange">Change my response</button>
+        </div>
+      </div>
+
+      <div class="footer-scene" aria-hidden="true"><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradFL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 250 Q70 190 160 205 Q250 218 330 180 L330 290 L-10 290Z" fill="url(#hillGradFL)"/><g transform="translate(150 0)" stroke-linecap="round"><ellipse cx="0" cy="252" rx="56" ry="8" fill="#ecd9de" opacity="0.7"/><circle cx="0" cy="212" r="44" fill="#fff" stroke="#efdfe3" stroke-width="2"/><circle cx="0" cy="150" r="33" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-28 140L-62 116M-50 124L-58 108" stroke="#a5806b" stroke-width="4" fill="none"/><g class="snowman-arm"><path d="M28 140L62 112M52 120L64 106M52 120L66 124" stroke="#a5806b" stroke-width="4" fill="none"/></g><circle cx="0" cy="98" r="25" fill="#fff" stroke="#efdfe3" stroke-width="2"/><path d="M-24 92Q-26 62 0 60Q26 62 24 92Z" fill="#f3a5b2"/><rect x="-27" y="86" width="54" height="9" rx="4.5" fill="#e7899a"/><circle cx="0" cy="58" r="8" fill="#fff" stroke="#f1c9d0" stroke-width="2"/><circle cx="-8" cy="102" r="2.8" fill="#5a4448"/><circle cx="8" cy="102" r="2.8" fill="#5a4448"/><path d="M0 107L16 110L0 112Z" fill="#f2a46a"/><circle cx="-14" cy="110" r="4" fill="#f6c3cb"/><circle cx="14" cy="110" r="4" fill="#f6c3cb"/><path d="M-7 116q7 5 14 0" stroke="#5a4448" stroke-width="2" fill="none"/><path d="M-26 122Q0 134 26 122L26 130Q0 142-26 130Z" fill="#a8c3bf"/><path d="M14 128L22 158L12 160L6 131Z" fill="#a8c3bf"/><circle cx="0" cy="146" r="3.5" fill="#e7899a"/><circle cx="0" cy="162" r="3.5" fill="#e7899a"/><circle cx="0" cy="200" r="3.5" fill="#e7899a"/></g><g transform="translate(262 150) scale(0.75)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#a8c3bf"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#a8c3bf"/></g></svg><svg viewBox="0 0 320 290" aria-hidden="true"><defs><linearGradient id="hillGradFR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6e8ec"/></linearGradient></defs><path d="M-10 180 Q70 218 160 205 Q250 190 330 250 L330 290 L-10 290Z" fill="url(#hillGradFR)"/><g transform="translate(70 0)"><ellipse cx="88" cy="250" rx="100" ry="8" fill="#ecd9de" opacity="0.7"/><g transform="translate(0 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f3a5b2"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#a8c3bf"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">A</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(120 190)"><rect x="0" y="0" width="58" height="58" rx="8" fill="#f4c98a"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">B</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g><g transform="translate(60 130)" class="block-top"><rect x="0" y="0" width="58" height="58" rx="8" fill="#cdb8e6"/><rect x="5" y="5" width="48" height="48" rx="5" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity="0.8"/><text x="29" y="41" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="34" fill="#fff">Y</text><path d="M-2 4Q4-6 14-2Q22-8 30-2Q40-8 48-2Q56-6 60 4Q58 9 52 7Q44 12 36 7Q28 12 20 7Q12 12 4 7Q0 9-2 4Z" fill="#fff"/></g></g><g transform="translate(40 168) scale(0.6)"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z" fill="#f3b1bb"/><rect x="-3" y="42" width="6" height="12" rx="2" fill="#f3b1bb"/></g></svg></div>
+
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const VB_W = 780, VB_H = 1000, CX = 390, CY = 500, RX = 355, RY = 465;
+
+      // ---------- Scalloped oval card shape ----------
+      const scallopPath = (n, bump) => {
+        const M = 2000, pts = [], len = [0];
+        for (let i = 0; i <= M; i++) {
+          const t = (i / M) * Math.PI * 2;
+          pts.push([CX + RX * Math.sin(t), CY - RY * Math.cos(t)]);
+          if (i) len.push(len[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+        }
+        const total = len[M];
+        let k = 0;
+        const at = (d) => {
+          while (k < M && len[k + 1] < d) k++;
+          return pts[k];
+        };
+        const samples = [];
+        for (let j = 0; j <= n * 2; j++) samples.push(at((total * j) / (n * 2)));
+        let d = `M${samples[0][0].toFixed(1)} ${samples[0][1].toFixed(1)}`;
+        for (let j = 0; j < n; j++) {
+          const m = samples[j * 2 + 1], q = samples[j * 2 + 2];
+          let nx = (m[0] - CX) / (RX * RX), ny = (m[1] - CY) / (RY * RY);
+          const nl = Math.hypot(nx, ny);
+          nx /= nl; ny /= nl;
+          d += ` Q${(m[0] + nx * bump * 2).toFixed(1)} ${(m[1] + ny * bump * 2).toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`;
+        }
+        return d + "Z";
+      };
+      const shape = scallopPath(46, 13);
+      document.getElementById("cardShape").setAttribute("d", shape);
+      document.getElementById("cardClipPath").setAttribute("d", shape);
+
+      // ---------- Winter motifs drawn around the border ----------
+      const motifs = {
+        pine: (c) => `<g fill="${c}" opacity="0.88"><path d="M0-50L20-14H10L28 14H15L34 42H-34L-15 14H-28L-10-14H-20Z"/><rect x="-3" y="42" width="6" height="10" rx="2"/></g>`,
+        fir: (c) => {
+          let p = "M0-52V54";
+          for (let i = 0; i < 8; i++) {
+            const y = -42 + i * 12, l = 7 + i * 3.4;
+            p += `M0 ${y}L${-l} ${y + l * 0.62}M0 ${y}L${l} ${y + l * 0.62}`;
+          }
+          return `<path d="${p}" stroke="${c}" stroke-width="3" stroke-linecap="round" fill="none"/>`;
+        },
+        bare: (c) => `<path d="M0 52V-4M0 22L-22-8L-30-28M-22-8L-10-34M0 6L20-20L25-42M20-20L34-26M0-4L-4-46M-4-30L8-40" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+        snow: (c) => {
+          let p = "";
+          for (let i = 0; i < 6; i++) {
+            const a = (i * Math.PI) / 3;
+            const r = (x, y) => `${(x * Math.cos(a) - y * Math.sin(a)).toFixed(1)} ${(x * Math.sin(a) + y * Math.cos(a)).toFixed(1)}`;
+            p += `M0 0L${r(0, -30)}M${r(0, -18)}L${r(-7, -25)}M${r(0, -18)}L${r(7, -25)}M${r(0, -9)}L${r(-5, -14)}M${r(0, -9)}L${r(5, -14)}`;
+          }
+          return `<path d="${p}" stroke="${c}" stroke-width="2.4" stroke-linecap="round" fill="none"/>`;
+        },
+      };
+      // Cute winter animals, each drawn in a ~100-unit box centred on 0,0
+      const animals = {
+        owl: "<g stroke-linecap=\"round\"><path d=\"M-24-14L-30-36L-12-25ZM24-14L30-36L12-25Z\" fill=\"#ebe1d8\" stroke=\"#ddcfc4\" stroke-width=\"2\"/><ellipse cx=\"0\" cy=\"10\" rx=\"29\" ry=\"34\" fill=\"#f5eee8\" stroke=\"#ddcfc4\" stroke-width=\"2\"/><path d=\"M-27 2q-11 18 1 34M27 2q11 18-1 34\" stroke=\"#ddcfc4\" stroke-width=\"3\" fill=\"none\"/><ellipse cx=\"0\" cy=\"-12\" rx=\"27\" ry=\"21\" fill=\"#faf6f2\" stroke=\"#ddcfc4\" stroke-width=\"2\"/><circle cx=\"-11\" cy=\"-13\" r=\"9\" fill=\"#fff\" stroke=\"#e3d6cc\" stroke-width=\"2\"/><circle cx=\"11\" cy=\"-13\" r=\"9\" fill=\"#fff\" stroke=\"#e3d6cc\" stroke-width=\"2\"/><g class=\"blink\"><circle cx=\"-11\" cy=\"-13\" r=\"4.2\" fill=\"#5a4448\"/><circle cx=\"11\" cy=\"-13\" r=\"4.2\" fill=\"#5a4448\"/><circle cx=\"-9.5\" cy=\"-14.8\" r=\"1.4\" fill=\"#fff\"/><circle cx=\"12.5\" cy=\"-14.8\" r=\"1.4\" fill=\"#fff\"/></g><path d=\"M-4-6L0 1L4-6Z\" fill=\"#f2b37a\"/><ellipse cx=\"-19\" cy=\"-3\" rx=\"4.5\" ry=\"2.6\" fill=\"#f6c3cb\"/><ellipse cx=\"19\" cy=\"-3\" rx=\"4.5\" ry=\"2.6\" fill=\"#f6c3cb\"/><path d=\"M-12 14q4 4 8 0M4 14q4 4 8 0M-6 25q4 4 8 0\" stroke=\"#cdbfb5\" stroke-width=\"2.4\" fill=\"none\"/><path d=\"M-9 43v5M-5 43v5M5 43v5M9 43v5\" stroke=\"#f2b37a\" stroke-width=\"2.6\"/></g>",
+        penguin: "<g stroke-linecap=\"round\"><path d=\"M-24 0q-13 14-7 27M24 0q13 14 7 27\" stroke=\"#8496a3\" stroke-width=\"8\" fill=\"none\"/><ellipse cx=\"0\" cy=\"9\" rx=\"26\" ry=\"35\" fill=\"#8496a3\"/><ellipse cx=\"0\" cy=\"15\" rx=\"18\" ry=\"27\" fill=\"#fffaf6\"/><ellipse cx=\"0\" cy=\"-16\" rx=\"22\" ry=\"20\" fill=\"#8496a3\"/><path d=\"M-15-15q15-13 30 0q-2 15-15 17q-13-2-15-17Z\" fill=\"#fffaf6\"/><g class=\"blink\"><circle cx=\"-7\" cy=\"-12\" r=\"3\" fill=\"#5a4448\"/><circle cx=\"7\" cy=\"-12\" r=\"3\" fill=\"#5a4448\"/><circle cx=\"-6\" cy=\"-13\" r=\"1\" fill=\"#fff\"/><circle cx=\"8\" cy=\"-13\" r=\"1\" fill=\"#fff\"/></g><path d=\"M-4-6H4L0-1Z\" fill=\"#f2b37a\"/><circle cx=\"-12\" cy=\"-5\" r=\"3.2\" fill=\"#f6c3cb\"/><circle cx=\"12\" cy=\"-5\" r=\"3.2\" fill=\"#f6c3cb\"/><path d=\"M-21-22q21-27 42 0\" stroke=\"#e7899a\" stroke-width=\"4\" fill=\"none\"/><circle cx=\"-22\" cy=\"-18\" r=\"7.5\" fill=\"#f3b1bb\"/><circle cx=\"22\" cy=\"-18\" r=\"7.5\" fill=\"#f3b1bb\"/><ellipse cx=\"-9\" cy=\"44\" rx=\"8\" ry=\"4\" fill=\"#f2b37a\"/><ellipse cx=\"9\" cy=\"44\" rx=\"8\" ry=\"4\" fill=\"#f2b37a\"/></g>",
+        fox: "<g stroke-linecap=\"round\" transform=\"translate(4 0)\"><ellipse cx=\"2\" cy=\"10\" rx=\"38\" ry=\"23\" fill=\"#eb9a76\"/><path d=\"M38 8q6 28-30 31q-26 1-34-12q22 9 44-3q14-7 20-16Z\" fill=\"#e38b67\"/><path d=\"M-26 27q-6-2-9-8q8 7 18 8Z\" fill=\"#fff6ef\"/><path d=\"M-36-8L-39-27L-25-15ZM-18-15L-11-31L-7-12Z\" fill=\"#eb9a76\"/><path d=\"M-34-11L-36-22L-28-15ZM-15-16L-11-26L-9-14Z\" fill=\"#f7d3c4\"/><circle cx=\"-22\" cy=\"0\" r=\"16\" fill=\"#eb9a76\"/><ellipse cx=\"-31\" cy=\"7\" rx=\"10\" ry=\"6.5\" fill=\"#fff6ef\"/><circle cx=\"-40\" cy=\"6\" r=\"2.6\" fill=\"#5a4448\"/><path d=\"M-28-2q3 3 6 0M-18-2q3 3 6 0\" stroke=\"#5a4448\" stroke-width=\"2\" fill=\"none\"/><circle cx=\"-12\" cy=\"5\" r=\"3.2\" fill=\"#f6c3cb\"/><g class=\"zz\"><path d=\"M8-26h7l-7 8h7M18-38h5l-5 6h5\" stroke=\"#e7899a\" stroke-width=\"2\" fill=\"none\" stroke-linejoin=\"round\"/></g></g>",
+        bunny: "<g stroke-linecap=\"round\"><ellipse cx=\"-9\" cy=\"-33\" rx=\"7\" ry=\"18\" fill=\"#f4e9df\" stroke=\"#e4d3c5\" stroke-width=\"2\" transform=\"rotate(-8 -9 -33)\"/><ellipse cx=\"9\" cy=\"-33\" rx=\"7\" ry=\"18\" fill=\"#f4e9df\" stroke=\"#e4d3c5\" stroke-width=\"2\" transform=\"rotate(8 9 -33)\"/><ellipse cx=\"-9\" cy=\"-31\" rx=\"3\" ry=\"12\" fill=\"#f6c3cb\" transform=\"rotate(-8 -9 -31)\"/><ellipse cx=\"9\" cy=\"-31\" rx=\"3\" ry=\"12\" fill=\"#f6c3cb\" transform=\"rotate(8 9 -31)\"/><ellipse cx=\"0\" cy=\"23\" rx=\"24\" ry=\"22\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"2\"/><ellipse cx=\"0\" cy=\"-8\" rx=\"20\" ry=\"17\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"2\"/><g class=\"blink\"><circle cx=\"-7\" cy=\"-10\" r=\"2.7\" fill=\"#5a4448\"/><circle cx=\"7\" cy=\"-10\" r=\"2.7\" fill=\"#5a4448\"/></g><path d=\"M-2.5-4h5L0-1.5Z\" fill=\"#e7899a\"/><path d=\"M0-1.5q-2 3-5 2M0-1.5q2 3 5 2\" stroke=\"#5a4448\" stroke-width=\"1.5\" fill=\"none\"/><circle cx=\"-12\" cy=\"-3\" r=\"3.2\" fill=\"#f6c3cb\"/><circle cx=\"12\" cy=\"-3\" r=\"3.2\" fill=\"#f6c3cb\"/><path d=\"M0 30c-9-6-12-11-8-15c3-3 6-1 8 2c2-3 5-5 8-2c4 4 1 9-8 15Z\" fill=\"#ef9aab\"/><ellipse cx=\"-8\" cy=\"20\" rx=\"5\" ry=\"4\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"1.6\"/><ellipse cx=\"8\" cy=\"20\" rx=\"5\" ry=\"4\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"1.6\"/><ellipse cx=\"-11\" cy=\"44\" rx=\"8\" ry=\"4.5\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"1.6\"/><ellipse cx=\"11\" cy=\"44\" rx=\"8\" ry=\"4.5\" fill=\"#f6ede4\" stroke=\"#e4d3c5\" stroke-width=\"1.6\"/></g>",
+        hedgehog: "<g stroke-linecap=\"round\"><path d=\"M-34 16L-38 5L-29 3L-31-9L-20-7L-18-19L-8-13L-2-23L4-13L14-19L16-7L26-9L24 3L33 5L30 16Z\" fill=\"#b48e77\"/><ellipse cx=\"0\" cy=\"14\" rx=\"30\" ry=\"16\" fill=\"#c9a68e\"/><ellipse cx=\"25\" cy=\"16\" rx=\"13\" ry=\"10\" fill=\"#f3dfcf\"/><circle cx=\"38\" cy=\"15\" r=\"2.8\" fill=\"#5a4448\"/><circle cx=\"26\" cy=\"11\" r=\"2.4\" fill=\"#5a4448\"/><circle cx=\"26.8\" cy=\"10.2\" r=\"0.8\" fill=\"#fff\"/><circle cx=\"23\" cy=\"19\" r=\"3\" fill=\"#f6c3cb\"/><ellipse cx=\"-14\" cy=\"30\" rx=\"6\" ry=\"3.5\" fill=\"#a98370\"/><ellipse cx=\"12\" cy=\"30\" rx=\"6\" ry=\"3.5\" fill=\"#a98370\"/><g transform=\"translate(-6 -26) scale(0.42)\"><path d=\"M0-30V30M-26-15L26 15M-26 15L26-15\" stroke=\"#f4b3be\" stroke-width=\"5\" fill=\"none\"/></g></g>",
+      };
+      const colors = { pine: "#a8c3bf", fir: "#f3b1bb", bare: "#b9cfd1", snow: "#f4b3be" };
+      // [angle from top (deg, clockwise), motif, size, ring position]
+      const layout = [
+        [0, "pine", 88, 0.82], [17, "snow", 44, 0.88], [30, "fir", 92, 0.86], [56, "owl", 100, 0.81],
+        [82, "snow", 44, 0.87], [97, "pine", 90, 0.82], [122, "fox", 106, 0.82], [146, "snow", 46, 0.87],
+        [158, "bare", 80, 0.86], [180, "penguin", 100, 0.81], [204, "fir", 92, 0.86], [220, "snow", 44, 0.87],
+        [240, "bunny", 102, 0.82], [262, "fir", 96, 0.83], [282, "snow", 46, 0.87], [302, "hedgehog", 94, 0.81],
+        [328, "pine", 80, 0.87], [344, "snow", 42, 0.88],
+      ];
+      let decor = "";
+      layout.forEach(([deg, kind, size, ring], i) => {
+        const t = (deg * Math.PI) / 180;
+        const x = CX + RX * ring * Math.sin(t), y = CY - RY * ring * Math.cos(t);
+        const spin = kind === "snow" ? ` rotate(${deg % 30})` : "";
+        const art = animals[kind] || motifs[kind](colors[kind]);
+        decor += `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${(size / 100).toFixed(2)})${spin}"><g class="m m-${kind}" style="animation-delay:${(-i * 0.73).toFixed(2)}s">${art}</g></g>`;
+      });
+      // Deterministic sprinkle of tiny dots in the border band
+      let seed = 7;
+      const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      for (let i = 0; i < 46; i++) {
+        const t = rand() * Math.PI * 2, ring = 0.7 + rand() * 0.22;
+        decor += `<circle cx="${(CX + RX * ring * Math.sin(t)).toFixed(1)}" cy="${(CY - RY * ring * Math.cos(t)).toFixed(1)}" r="${(3 + rand() * 3).toFixed(1)}" fill="#f6c3cb"/>`;
+      }
+      document.getElementById("cardDecor").innerHTML = decor;
+
+      // ---------- Falling snow ----------
+      const snow = document.querySelector(".snow");
+      for (let i = 0; i < 28; i++) {
+        const s = document.createElement("span");
+        const size = 3 + Math.random() * 5;
+        s.style.cssText = `left:${Math.random() * 100}%;width:${size}px;height:${size}px;` +
+          `animation-duration:${9 + Math.random() * 10}s;animation-delay:${-Math.random() * 18}s;` +
+          `--drift:${(Math.random() * 80 - 40).toFixed(0)}px`;
+        snow.appendChild(s);
+      }
+
+      // ---------- Nursery mobile on the sides (wide screens) ----------
+      const starPath = (() => {
+        let d = "";
+        for (let i = 0; i < 10; i++) {
+          const r = i % 2 ? 11 : 25, a = (Math.PI / 5) * i - Math.PI / 2;
+          d += `${i ? "L" : "M"}${(r * Math.cos(a)).toFixed(1)} ${(r * Math.sin(a)).toFixed(1)}`;
+        }
+        return d + "Z";
+      })();
+      const sleepy = `<path d="M-8 0q3 3 6 0M2 0q3 3 6 0" stroke="#8a6a5e" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="-10" cy="5" r="2.6" fill="#f6b8c2"/><circle cx="10" cy="5" r="2.6" fill="#f6b8c2"/>`;
+      const charms = {
+        star: `<path d="${starPath}" fill="#f4cf94" stroke="#efc07a" stroke-width="1.5" stroke-linejoin="round"/>${sleepy}`,
+        moon: `<path d="M6-25A25 25 0 1 0 6 25A19 19 0 1 1 6-25Z" fill="#f6dca6"/><path d="M-14-2q3 3 6 0" stroke="#8a6a5e" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="-13" cy="6" r="2.6" fill="#f6b8c2"/>`,
+        snowflake: motifs.snow("#a8c3bf").replace('stroke-width="2.4"', 'stroke-width="3.4"'),
+        onesie: `<path d="M-10-24Q0-17 10-24L22-16L27-4L17 0L15-6L15 22Q0 28-15 22L-15-6L-17 0L-27-4L-22-16Z" fill="#f6b8c2"/><path d="M-10-24Q0-14 10-24" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M0 9c-5-3-7-6-4.5-8.5c1.8-1.7 3.5-.6 4.5 1c1-1.6 2.7-2.7 4.5-1c2.5 2.5.5 5.5-4.5 8.5Z" fill="#fff"/><circle cx="-5" cy="20" r="1.6" fill="#fff"/><circle cx="5" cy="20" r="1.6" fill="#fff"/>`,
+        bottle: `<path d="M-5-16Q-5-28 0-28Q5-28 5-16Z" fill="#f7d6b5"/><rect x="-9" y="-17" width="18" height="8" rx="2" fill="#f3a5b2"/><rect x="-11" y="-9" width="22" height="34" rx="7" fill="#fff" stroke="#e8c7cd" stroke-width="2"/><rect x="-9" y="6" width="18" height="17" rx="5" fill="#fdf0e2"/><path d="M3-3h5M3 3h5M3 9h5" stroke="#e8c7cd" stroke-width="1.6" stroke-linecap="round"/>`,
+        mitten: `<path d="M-12 16V-8Q-12-22 0-22Q12-22 12-8V2Q19-1 20-9Q24-1 18 8L12 13V16Z" fill="#e7899a"/><rect x="-14" y="14" width="28" height="10" rx="4" fill="#fff" stroke="#f1c9d0" stroke-width="1.5"/><circle cx="-4" cy="-8" r="2" fill="#fff"/><circle cx="4" cy="0" r="2" fill="#fff"/><circle cx="-3" cy="6" r="2" fill="#fff"/>`,
+        rattle: `<rect x="-3" y="3" width="6" height="20" rx="3" fill="#a8c3bf"/><circle cy="27" r="6" fill="none" stroke="#a8c3bf" stroke-width="3"/><circle cy="-10" r="15" fill="#f6b8c2"/><circle cx="-5" cy="-14" r="2.2" fill="#fff"/><circle cx="5" cy="-8" r="2.2" fill="#fff"/><circle cx="4" cy="-17" r="1.6" fill="#fff"/>`,
+        bootie: `<path d="M-14-14H2V2Q16 2 20 10Q22 18 14 20H-12Q-16 20-16 14Z" fill="#bcd5d2"/><rect x="-16" y="-20" width="20" height="9" rx="3" fill="#fff" stroke="#d5e3e1" stroke-width="1.5"/><circle cx="-6" cy="-22" r="4" fill="#f3a5b2"/>`,
+      };
+      // [charm, x position (% of panel), string length (vh), size (px), swing duration (s)]
+      const mobiles = {
+        left: [["star", 18, 14, 64, 3.6], ["onesie", 44, 32, 70, 4.4], ["snowflake", 70, 10, 54, 3.2], ["bottle", 30, 48, 58, 4.8], ["moon", 80, 36, 62, 4.0]],
+        right: [["mitten", 22, 26, 60, 4.2], ["snowflake", 46, 46, 52, 3.4], ["rattle", 76, 12, 62, 3.8], ["star", 62, 34, 56, 4.6], ["bootie", 28, 9, 58, 3.3]],
+      };
+      // Smaller version for phones, hanging above the envelope
+      const miniMobile = [["star", 12, 7, 42, 3.4], ["snowflake", 31, 13, 36, 3.0], ["onesie", 50, 4, 46, 4.0], ["moon", 69, 11, 40, 3.7], ["bottle", 88, 6, 38, 4.3]];
+      const mobileTop = document.querySelector(".mobile-top");
+      mobileTop.innerHTML = miniMobile
+        .map(([charm, x, len, size, dur], i) =>
+          `<div class="hang" style="left:${x}%;--len:${len}vh;--size:${size}px;--dur:${dur}s;--delay:${(-i * 0.8).toFixed(1)}s">` +
+          `<span class="string"></span><svg viewBox="-30 -30 60 60">${charms[charm]}</svg></div>`)
+        .join("");
+
+      Object.entries(mobiles).forEach(([side, items]) => {
+        document.querySelector(`.side-art.${side} .mobile`).innerHTML = items
+          .map(([charm, x, len, size, dur], i) =>
+            `<div class="hang" style="left:${x}%;--len:${len}vh;--size:${size}px;--dur:${dur}s;--delay:${(-i * 0.9).toFixed(1)}s">` +
+            `<span class="string"></span><svg viewBox="-30 -30 60 60">${charms[charm]}</svg></div>`)
+          .join("");
+      });
+
+      // ---------- Scroll-driven envelope animation ----------
+      const scrolly = document.querySelector(".scrolly");
+      const envelope = document.querySelector(".envelope");
+      const card = document.querySelector(".card-invite");
+      const flap = document.querySelector(".env-flap");
+      const envParts = document.querySelectorAll(".env-back, .env-front, .env-front-edge, .env-flap");
+      const hint = document.querySelector(".scroll-hint");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+      const seg = (p, a, b) => clamp((p - a) / (b - a));
+      const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const lerp = (a, b, t) => a + (b - a) * t;
+
+      let W, H, CW, CH, s0, navH, vh;
+
+      const measure = () => {
+        const vw = window.innerWidth;
+        vh = window.innerHeight;
+        const nav = document.querySelector("nav");
+        navH = nav ? nav.offsetHeight : 0;
+        const avail = vh - navH;
+        W = Math.min(vw * 0.86, 460);
+        H = W * 0.66;
+        CW = Math.min(vw * 0.9, avail * 0.88 * (VB_W / VB_H), 470);
+        CH = CW * (VB_H / VB_W);
+        s0 = (0.86 * H) / CH;
+        envelope.style.width = `${W}px`;
+        envelope.style.height = `${H}px`;
+        envelope.style.marginLeft = `${-W / 2}px`;
+        envelope.style.marginTop = `${-H / 2}px`;
+        card.style.width = `${CW}px`;
+        card.style.height = `${CH}px`;
+        card.style.marginLeft = `${-CW / 2}px`;
+        card.style.marginTop = `${-CH / 2}px`;
+        card.style.fontSize = `${CW / 24}px`;
+        update();
+      };
+
+      const update = () => {
+        const rect = scrolly.getBoundingClientRect();
+        const p = reduceMotion ? 1 : clamp(-rect.top / (rect.height - vh));
+
+        const open = ease(seg(p, 0.02, 0.22));   // flap opens
+        const rise = ease(seg(p, 0.22, 0.55));   // card slides up out of envelope
+        const settle = ease(seg(p, 0.58, 0.92)); // card centres & grows, envelope drops away
+
+        const centre = navH / 2;
+        const envY0 = centre + H * 0.55;
+        const envY = envY0 + settle * (vh * 0.6 + H);
+        envelope.style.transform = `translateY(${envY}px)`;
+
+        flap.style.transform = `rotateX(${open * 180}deg)`;
+        flap.classList.toggle("is-open", open > 0.5);
+        flap.style.zIndex = open > 0.5 ? 1 : 6;
+
+        // Card position in stage space, then made relative to the envelope
+        const outY = envY0 - H * 1.02;
+        const stageY = rise < 1 ? lerp(envY0 + H * 0.04, outY, rise) : lerp(outY, centre, settle);
+        const scale = rise < 1 ? s0 : lerp(s0, 1, settle);
+        card.style.transform = `translateY(${stageY - envY}px) scale(${scale})`;
+        card.style.zIndex = rise >= 1 ? 10 : 3;
+
+        const fade = 1 - seg(p, 0.7, 0.92);
+        envParts.forEach((el) => (el.style.opacity = fade));
+
+        // Hint sits just above the envelope and fades out as the flap opens
+        const envTop = vh / 2 + envY - H / 2;
+        hint.style.transform = `translate(-50%, ${envTop - hint.offsetHeight - 18}px)`;
+        hint.style.opacity = 1 - seg(p, 0.01, 0.12);
+
+        // Mini mobile hangs below the navbar and clears out before the card rises into it
+        mobileTop.style.top = `${navH}px`;
+        mobileTop.style.opacity = 1 - seg(p, 0.18, 0.4);
+      };
+
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }, { passive: true });
+      window.addEventListener("resize", measure);
+      // common.js (deferred) inserts the navbar before DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", measure);
+      if (reduceMotion) scrolly.style.height = "100vh";
+
+      // ---------- Reveal detail cards ----------
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.25 });
+      document.querySelectorAll(".detail").forEach((el) => io.observe(el));
+    })();
+  </script>
+
+  <script>
+    // ---------- RSVP form (saved to Supabase via submit_rsvp) ----------
+    (() => {
+      const SUPABASE_URL = "https://dgnyxlwziobmqydzibne.supabase.co";
+      const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vTRRXyqzT1LCluyMBt8eeQ_EgnsBjnE";
+
+      const sb = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+      const form = document.getElementById("rsvpForm");
+      const fields = document.getElementById("rsvpFields");
+      const nameInput = document.getElementById("rsvpName");
+      const guestsInput = document.getElementById("rsvpGuests");
+      const commentInput = document.getElementById("rsvpComment");
+      const emailInput = document.getElementById("rsvpEmail");
+      const submitButton = document.getElementById("rsvpSubmit");
+      const errorBox = document.getElementById("rsvpError");
+      const thanks = document.getElementById("rsvpThanks");
+
+      const THANKS = {
+        attending: {
+          emoji: "🎉",
+          title: "Yay, see you there!",
+          text: (n, g) => `Thanks, ${n}! We've saved ${g === 1 ? "a spot for you" : `${g} spots for your group`}. We can't wait to celebrate with you on December 13th.`,
+        },
+        maybe: {
+          emoji: "🤞",
+          title: "Thanks for letting us know",
+          text: (n) => `No worries, ${n}! Come back to this page any time to confirm, just use the same email.`,
+        },
+        declined: {
+          emoji: "💌",
+          title: "You'll be missed!",
+          text: (n) => `Thank you for letting us know, ${n}. We'll be thinking of you on the day.`,
+        },
+      };
+
+      const selectedResponse = () => form.querySelector('input[name="response"]:checked')?.value || "";
+
+      form.addEventListener("change", (event) => {
+        if (event.target.name !== "response") return;
+        const wasHidden = fields.hidden;
+        fields.hidden = false;
+        if (wasHidden) nameInput.focus({ preventScroll: true });
+      });
+
+      const clampGuests = (value) => Math.min(20, Math.max(1, Math.round(Number(value)) || 1));
+      form.querySelectorAll("[data-step]").forEach((button) => {
+        button.addEventListener("click", () => {
+          guestsInput.value = clampGuests(Number(guestsInput.value) + Number(button.dataset.step));
+        });
+      });
+      guestsInput.addEventListener("blur", () => (guestsInput.value = clampGuests(guestsInput.value)));
+
+      const showError = (message) => (errorBox.textContent = message);
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        showError("");
+
+        const response = selectedResponse();
+        const name = nameInput.value.trim();
+        const guests = clampGuests(guestsInput.value);
+        const comment = commentInput.value.trim();
+        const email = emailInput.value.trim();
+        guestsInput.value = guests;
+
+        if (!response) return showError("Please pick one of the options above.");
+        if (!name) {
+          nameInput.focus();
+          return showError("Please enter your name.");
+        }
+        if (!email) {
+          emailInput.focus();
+          return showError("Please enter your email.");
+        }
+        if (!emailInput.checkValidity()) {
+          emailInput.focus();
+          return showError("That email address doesn't look right.");
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+
+        const { error } = await sb.rpc("submit_rsvp", {
+          p_name: name,
+          p_response: response,
+          p_guest_count: guests,
+          p_comment: comment || null,
+          p_email: email,
+        });
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Send RSVP";
+
+        if (error) {
+          console.error("SUPABASE ERROR:", error);
+          showError("We couldn't save your RSVP right now. Please try again.");
+          return;
+        }
+
+        const saved = { response, name, guests, comment, email };
+        rememberRsvp(saved);
+        showThanks(saved, false);
+        thanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
+      function showThanks({ response, name, guests }, returning) {
+        const copy = THANKS[response];
+        document.getElementById("thanksEmoji").textContent = copy.emoji;
+        document.getElementById("thanksTitle").textContent = returning ? `Welcome back, ${name}!` : copy.title;
+        document.getElementById("thanksText").textContent = returning
+          ? `Your RSVP: ${LABELS[response]}${response === "declined" ? "" : ` · ${guests} ${guests === 1 ? "guest" : "guests"}`}. Plans changed? You can update it any time.`
+          : copy.text(name, guests);
+        form.hidden = true;
+        thanks.hidden = false;
+      }
+
+      // ---------- Remember the last RSVP on this device ----------
+      const STORAGE_KEY = "babyShowerRsvp";
+      const LABELS = {
+        attending: "🎉 Definitely attending",
+        maybe: "🤔 Will confirm later",
+        declined: "💌 Sorry, can't make it",
+      };
+
+      function rememberRsvp(saved) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+        } catch (e) {
+          // Storage unavailable (private browsing etc.); the RSVP is still saved in Supabase.
+        }
+      }
+
+      function loadRsvp() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          return saved && THANKS[saved.response] && saved.name ? saved : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // Pre-fill the form so changing a response is quick, and keeps the same email.
+      function fillForm(saved) {
+        const radio = form.querySelector(`input[name="response"][value="${saved.response}"]`);
+        if (radio) radio.checked = true;
+        nameInput.value = saved.name;
+        guestsInput.value = clampGuests(saved.guests);
+        commentInput.value = saved.comment || "";
+        emailInput.value = saved.email || "";
+        fields.hidden = false;
+      }
+
+      const previous = loadRsvp();
+      if (previous) {
+        fillForm(previous);
+        showThanks(previous, true);
+      }
+
+      document.getElementById("rsvpChange").addEventListener("click", () => {
+        const saved = loadRsvp();
+        if (saved) fillForm(saved);
+        thanks.hidden = true;
+        form.hidden = false;
+        form.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    })();
+  </script>
+</body>
+</html>
