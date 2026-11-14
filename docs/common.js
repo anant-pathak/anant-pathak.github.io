@@ -15,8 +15,11 @@ const addNavbar = (currentPage) => {
     "bg-light"
   );
 
-  // The Baby Shower page is shared with guests, so it skips the site title
-  if (!currentPage.includes("baby_shower_prediction.html")) {
+  // Guest-facing pages are shared with guests, so they skip the site title
+  const guestPages = ["baby_shower_prediction.html", "baby_shower_rsvp.html"];
+  const isGuestPage = guestPages.some((page) => currentPage.includes(page));
+
+  if (!isGuestPage) {
     const brand = document.createElement("a");
     brand.classList.add("navbar-brand", "ms-2");
     brand.href = "index.html";
@@ -46,7 +49,8 @@ const addNavbar = (currentPage) => {
   let pages = [
     { href: "index.html", text: "🏠 Home" },
     { href: "previous_work.html", text: "Previous Work" },
-    { href: "baby_shower_prediction.html", text: "Baby Shower" },
+    { href: "baby_shower_prediction.html", text: "Gender Reveal" },
+    { href: "baby_shower_rsvp.html", text: "Baby Shower RSVP" },
     { href: "cpp_whole.html", text: "C++ Cheat Sheet" },
     { href: "linux_cheat_sheet.html", text: "Linux Cheat Sheet" },
     { href: "git.html", text: "Git Cheat Sheet" },
@@ -54,8 +58,8 @@ const addNavbar = (currentPage) => {
     { href: "contact_me.html", text: "Contact Me" },
   ];
 
-  // If we are on the Baby Shower page, only show the Home link
-  if (currentPage.includes("baby_shower_prediction.html")) {
+  // If we are on a guest-facing page, only show the Home link
+  if (isGuestPage) {
     pages = [{ href: "index.html", text: "🏠 Home" }];
   }
 
